@@ -1,12 +1,11 @@
 import { combineReducers } from 'redux'
-import cr from 'utils/cr'
+import _ from 'underscore';
+import cr from '../utils/cr'
 import {
   SHOW_TOAST,
   WILL_DROP_TOAST,
   DROP_TOAST,
-  SHOW_CONFIRM,
-  CLOSE_CONFIRM,
-} from 'act/global'
+} from '../actions/global'
 
 export default combineReducers({
   toast: cr(null, {
@@ -21,8 +20,8 @@ export default combineReducers({
     }
   }),
 
-  confirm: cr(null, {
-    [SHOW_CONFIRM]({props}){return props},
-    [CLOSE_CONFIRM](){return null},
-  })
+  // confirm: cr(null, {
+  //   [SHOW_CONFIRM]({props}){return props},
+  //   [CLOSE_CONFIRM](){return null},
+  // })
 })
