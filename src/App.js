@@ -3,12 +3,12 @@ import { createStore, compose, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux'
-import { Button, Icon } from 'antd-mobile';
-//import store from './store'
 import _ from 'underscore'
 import Global from './components/Global'
 import rootReducer from './store/reducer'
 import {toast, confirm} from './actions/global'
+import Login from './components/Login'
+import Main from './components/Main'
 
 const finalCreateStore = compose(
   applyMiddleware(thunk),
@@ -71,31 +71,18 @@ class App extends Component {
   }
 
   renderApp(){
-    //if(this.props.logged===null) return null
-    //if(!this.props.logged) return <Login/>
+    if(this.props.logged===null) return null
+    if(!this.props.logged) return <Login/>
     return this.renderRouter()
 
   }
-
   renderRouter(){
     return <BrowserRouter>
       <React.Fragment>
-        <Button type="primary" onClick={()=>window.XK_MESSAGER.warn('123')}>This is a button</Button>
-        <Icon type="success" size="lg"/>
+        <Main />
       </React.Fragment>
     </BrowserRouter>
   }
 
 }
-// <div className={styles.App}>
-//   <div className='App-header'>
-//     <Icon type="success" size="lg"/>
-//     <div style={{ width: 60, height:60 }}>{reactIcon()}</div>
-//     <h2>Welcome to React</h2>
-//   </div>
-//   <p className={styles['App-intro']}>
-//     To get started, edit <code>src/App.js</code> and save to reload.
-//   </p>
-//   <Button type="primary">This is a button</Button>
-// </div>
 export default App;

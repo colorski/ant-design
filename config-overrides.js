@@ -1,20 +1,12 @@
-const { injectBabelPlugin, getLoader } = require('react-app-rewired');
-
-const fileLoaderMatcher = function (rule) {
-  return rule.loader && rule.loader.indexOf(`file-loader`) !== -1;
-}
+const { injectBabelPlugin } = require('react-app-rewired');
 
 module.exports = function override(config, env) {
   // babel-plugin-import
   config = injectBabelPlugin(['import', {
-    libraryName: 'antd-mobile',
+    libraryName: 'antd',
     style: 'css',
     //style: true,
   }], config);
-
-  // file-loader exclude
-  let l = getLoader(config.module.rules, fileLoaderMatcher);
-  l.exclude.push(/\.less$/);
 
   return config;
 };

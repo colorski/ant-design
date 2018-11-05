@@ -1,0 +1,56 @@
+.login {
+  padding: 3rem;
+  display: flex; flex-flow: column; min-height: 100vh;
+}
+.login-body {
+  flex: 1;
+}
+.login .logo {
+  height: 30%;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.login .logo svg {
+  width: 60%;
+  animation: logo-spin infinite 20s linear;
+}
+.login .li {
+  margin-bottom: 20px;
+}
+.login .li .ant-input-group-addon {
+  width: 80px;
+}
+.login .li button,.login .li button > span {
+  display: block;
+  width: 100%;
+}
+.login-footer {
+  text-align: center;
+}
+
+@keyframes logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

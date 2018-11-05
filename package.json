@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "ajv": "^6.0.0",
-    "antd-mobile": "^2.2.5",
+    "antd": "^3.10.3",
+    "antd-mobile": "^2.2.6",
     "autoprefixer": "^9.2.1",
+    "babel": "^6.23.0",
     "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.6",
     "react": "^16.5.2",
@@ -24,7 +26,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "babel-plugin-import": "^1.10.0",
+    "babel-plugin-import": "^1.11.0",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
     "react-app-rewired": "^1.6.2"

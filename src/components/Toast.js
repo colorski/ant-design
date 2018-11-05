@@ -1,6 +1,6 @@
 import './Toast.css'
 import React from 'react'
-import { Icon } from 'antd-mobile';
+import { Icon } from 'antd';
 import cns from 'classnames'
 
 export default function(props){

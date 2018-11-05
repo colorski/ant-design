@@ -1,7 +1,9 @@
-import { createStore, /*applyMiddleware,*/ compose } from 'redux'
-import reducer from './reducer'
+//未使用：用的App.js里创建的store
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducer, /* preloadedState, */ composeEnhancers());
+// import { createStore, /*applyMiddleware,*/ compose } from 'redux'
+// import reducer from './reducer'
 
-export default store;
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const store = createStore(reducer, /* preloadedState, */ composeEnhancers());
+
+// export default store;

@@ -1,13 +1,13 @@
 
 import React, { Component } from 'react';
 import GlobalToasts from '../containers/GlobalToastsCtn'
-//import AddAttentionModal from 'ctn/AddAttentionModalCtn'
-//import KeepModal from 'ctn/KeepModalCtn'
+import GlobalConfirm from '../containers/GlobalConfirmCtn'
 
 class Global extends Component {
   render() {
     return <div className="global">
       <GlobalToasts />
+      <GlobalConfirm />
     </div>
   }
 }

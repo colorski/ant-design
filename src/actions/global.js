@@ -13,14 +13,14 @@ export const closeConfirm = mac(CLOSE_CONFIRM)
 
 const toastTypes = {
   info: 'info',
-  warn: 'warn',
-  warning: 'warn',
-  wrong: 'wrong',
-  err: 'wrong',
-  error: 'wrong',
-  ok: 'ok',
-  yes: 'ok',
-  help: 'help'
+  warn: 'cross-circle-o',
+  warning: 'cross-circle-o',
+  wrong: 'cross-circle-o',
+  err: 'cross-circle',
+  error: 'cross-circle-o',
+  ok: 'check-circle-o',
+  yes: 'check-circle',
+  help: 'question-circle'
 }
 
 let toastDropTimeoutId
@@ -47,14 +47,3 @@ export const toast = (...args) => dispatch => {
     setTimeout(()=>dispatch({type: DROP_TOAST}), 300)
   }, duration*1000)
 }
-
-// export const addEvent = (schoolId, productId, eventType, eventContent, eventValue1, eventValue2) => dispatch => {
-//   dispatch(post('/api/event/add', {
-//     schoolId,
-//     productId,
-//     eventType,
-//     eventContent,
-//     eventValue1,
-//     eventValue2
-//   }))
-// }
