@@ -1,15 +1,20 @@
 import { connect } from 'react-redux'
 import Login from '../components/Login'
-import { onLogin } from '../actions/login'
+import { getStorageData, login } from '../actions/login'
 
 export default connect(function(state){
   return {
-    data: state.login.logged
+    userName: state.login.userName,
+    passWord: state.login.passWord,
+    logged: state.login.logged
   }
 }, function(dispatch){
   return {
-    onLogins(username, password){
-      dispatch(onLogin(username, password))
+    onGetStorageData () {
+      dispatch(getStorageData())
     },
+    onLogin (userName, passWord) {
+      dispatch(login(userName, passWord))
+    }
   }
 })(Login)

@@ -13,14 +13,14 @@ export const closeConfirm = mac(CLOSE_CONFIRM)
 
 const toastTypes = {
   info: 'info',
-  warn: 'cross-circle-o',
-  warning: 'cross-circle-o',
-  wrong: 'cross-circle-o',
-  err: 'cross-circle',
-  error: 'cross-circle-o',
-  ok: 'check-circle-o',
-  yes: 'check-circle',
-  help: 'question-circle'
+  warn: 'warn',
+  warning: 'warn',
+  wrong: 'close-o',
+  err: 'close-o',
+  error: 'close-o',
+  ok: 'complete',
+  yes: 'complete',
+  help: 'wenhao-o'
 }
 
 let toastDropTimeoutId
@@ -46,4 +46,31 @@ export const toast = (...args) => dispatch => {
     dispatch({type: WILL_DROP_TOAST})
     setTimeout(()=>dispatch({type: DROP_TOAST}), 300)
   }, duration*1000)
+}
+
+export const registerMessagers = () => (dispatch) => {
+  window.MESSAGER = {
+    toast(...args){
+      dispatch(toast(...args))
+    },
+    error(...args){
+      dispatch(toast(...args, 'err'))
+    },
+    success(...args){
+      dispatch(toast(...args, 'ok'))
+    },
+    warn(...args){
+      dispatch(toast(...args, 'warn'))
+    },
+    alert(text, onOk){
+      dispatch(confirm({type: 'alert', text, onOk}))
+    },
+    confirm(text, onOk, onCancel){
+      const params = _.isObject(text) ? text : {text, onOk, onCancel}
+      dispatch(confirm(params))
+    },
+    prompt(text, onOk){
+      dispatch(confirm({type: 'prompt', text, onOk}))
+    }
+  }
 }

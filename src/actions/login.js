@@ -1,38 +1,39 @@
 //import md5 from 'md5'
 //import {get, post} from 'act/req'
+//import mac from '../utils/mac'
 import { message } from 'antd';
-import mac from '../utils/mac'
-export const GET_USER_NAME = 'login/GET_USER_NAME'
-export const GET_PASSWORD = 'login/GET_PASSWORD'
 
-//const receiveLoginData = mac(RECEIVE_LOGIN_DATA, 'data')
+export const RECEIVE_LOGIN_DATA = 'login/RECEIVE_LOGIN_DATA'
 
+export const LOGGED = 'login/LOGGED'
+export const LOGIN_NAME = 'login/LOGIN_NAME'
+export const LOGIN_PASSWORD = 'login/LOGIN_PASSWORD'
 
+const storage = window.localStorage;
 
+export const getStorageData = () => (dispatch) =>{
+  dispatch({type: LOGIN_NAME, userName: storage.getItem('userName')})
+  dispatch({type: LOGIN_PASSWORD, passWord: storage.getItem('passWord')})
+  //dispatch({type: LOGGED, logged: storage.getItem('logged')})
+}
 
+export const login = (userName, passWord) => (dispatch) => {
+  if(!userName){
+    message.warning('请输入用户名！');
+    return false;
+  }
+  if(!passWord){
+    message.warning('请输入密码！');
+    return false;
+  }
 
+  dispatch({type: LOGIN_NAME, userName: userName})
+  dispatch({type: LOGIN_PASSWORD, passWord: passWord})
+  dispatch({type: LOGGED, logged: true})
 
-// export const onLogin = (name, password) => (dispatch) => {
-  
-//   if(!name){
-//     message.warning('请输入用户名！');
-//     return dispatch({type: LOGIN_FAIL}) 
-//   }
-//   if(!password){
-//     message.warning('请输入密码！');
-//     return dispatch({type: LOGIN_FAIL}) 
-//   }
-//   //dispatch(geLoginDataFromStorage())
-// }
+  storage.setItem('userName',userName)
+  storage.setItem('passWord',passWord)
+  //storage.setItem('logged', true)
 
-// export const geLoginDataFromStorage = () => (dispatch) => {
-//   dispatch(get('/api/conf/get', {id:1}, (err, data) =>{
-//     const _data = data.root
-//     if(err){
-//       XK_MESSAGER.error(err.message || '获取奖励规则信息失败')
-//       dispatch(close())
-//     }else{
-//       dispatch(receiveLoginData(_data));
-//     }
-//   }))
-// }
+  //message.success('登录成功！');
+}

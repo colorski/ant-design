@@ -1,15 +1,27 @@
 import { combineReducers } from 'redux'
+//import _ from 'underscore'
 import cr from '../utils/cr'
 import {
-  GET_USER_NAME,
-  GET_PASSWORD
+  LOGIN_NAME,
+  LOGIN_PASSWORD,
+  LOGGED
 } from '../actions/login'
 
 export default combineReducers({
   userName: cr(null,{
-    [GET_USER_NAME]({data}){return data}
+    [LOGIN_NAME]({userName}){
+      return userName
+    }
   }),
   passWord: cr(null,{
-    [GET_PASSWORD]({data}){return data}
+    [LOGIN_PASSWORD]({passWord}){
+      return passWord
+    }
+  }),
+  logged: cr(false,{
+    [LOGGED](){
+      return true
+    }
   })
 })
+
