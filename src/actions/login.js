@@ -1,6 +1,3 @@
-//import md5 from 'md5'
-//import {get, post} from 'act/req'
-//import mac from '../utils/mac'
 import { message } from 'antd';
 
 export const RECEIVE_LOGIN_DATA = 'login/RECEIVE_LOGIN_DATA'
@@ -33,7 +30,5 @@ export const login = (userName, passWord) => (dispatch) => {
 
   storage.setItem('userName',userName)
   storage.setItem('passWord',passWord)
-  //storage.setItem('logged', true)
 
-  //message.success('登录成功！');
 }

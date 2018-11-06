@@ -1,11 +1,10 @@
 {
-  "name": "ant-design-mobile",
+  "name": "ant-design",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "ajv": "^6.0.0",
     "antd": "^3.10.3",
-    "antd-mobile": "^2.2.6",
     "autoprefixer": "^9.2.1",
     "babel": "^6.23.0",
     "babel-polyfill": "^6.26.0",

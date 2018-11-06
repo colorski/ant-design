@@ -7,7 +7,7 @@ import Global from '../components/Global';
 export default class extends Component{
 
   render(){
-    return <div className="xkcpn-app">
+    return <div className="app">
       {this.renderApp()}
       <Global/>
     </div>

@@ -7,7 +7,6 @@ export default class Login extends Component {
   constructor(props){
     super(props)
     this.state = {
-      //waiting: false,
       userName: this.props.userName,
       passWord: this.props.passWord
     }
@@ -17,7 +16,7 @@ export default class Login extends Component {
 
   render () {
     const { onLogin, userName, passWord } = this.props;
-    
+
     const _userName = this.state.userName?this.state.userName:this.props.userName;
     const _passWord = this.state.passWord?this.state.passWord:this.props.passWord;
 
@@ -31,7 +30,7 @@ export default class Login extends Component {
           <Input type="password" addonBefore="密码：" defaultValue={passWord} onChange={this.handleChangeUserPwd} />
         </div>
         <div className="li">
-          <Button type="primary" onClick={()=>onLogin(_userName, _passWord)}>登录</Button>
+          <Button type="primary" onClick={()=>onLogin(_userName, _passWord)} onKeyDown={(e)=>{if(e.keyCode===13){onLogin(_userName, _passWord)}}}>登录</Button>
         </div>
       </div>
       <div className="login-footer">https://github.com/colorski</div>

@@ -12,15 +12,15 @@ const finalCreateStore = compose(
 
 function configureStore(initialState) {
   const store = finalCreateStore(rootReducer, initialState)
-  if (module.hot) {
-    // inferno dev tools 会影响到函数组件的属性生命周期函数执行
-    // require('inferno-devtools')
-    // Enable Webpack hot module replacement for reducers
-    module.hot.accept(/*'rdc/customerIndex', () => {
-      const nextRootReducer = require('rdc/customerIndex')
-      store.replaceReducer(nextRootReducer)
-    }*/)
-  }
+  // if (module.hot) {
+  //   // inferno dev tools 会影响到函数组件的属性生命周期函数执行
+  //   // require('inferno-devtools')
+  //   // Enable Webpack hot module replacement for reducers
+  //   module.hot.accept(/*'rdc/customerIndex', () => {
+  //     const nextRootReducer = require('rdc/customerIndex')
+  //     store.replaceReducer(nextRootReducer)
+  //   }*/)
+  // }
 
   return store
 }
@@ -32,9 +32,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div className="app">
-          <AppContainer />
-        </div>
+        <AppContainer />
       </Provider>
     );
   }
