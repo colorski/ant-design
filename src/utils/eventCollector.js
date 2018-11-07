@@ -1,5 +1,5 @@
 import _ from 'underscore'
-import fetch from 'utils/fetch'
+import fetch from './utils/fetch'
 import qs from 'query-string'
 
 export default function buildEventCollector(){
@@ -15,13 +15,13 @@ function findEventTarget(el){
   if(!el) return null
   const eeid = el.getAttribute('eeid')
   const eearg = el.getAttribute('eearg')
-  return (eeid && eeid!='null' && eeid!='undefined' && eeid!='false') ?
+  return (eeid && eeid!=='null' && eeid!=='undefined' && eeid!=='false') ?
     {eeid, eearg} :
     findEventTarget(el.parentElement)
 }
 
 export function sendEvent(eeid, eearg, url){
-  url = url || location.href.replace(/\?.*/, '').replace(/\/\d+(?=\/|$)/g, '/_id_')
+  url = url || window.location.href.replace(/\?.*/, '').replace(/\/\d+(?=\/|$)/g, '/_id_')
   let params = {event: eeid, url}
   if(eearg){
     params.request = genArg(eearg)
@@ -39,8 +39,8 @@ export function genArg(args){
 
 let currUrl = ''
 export function sendRouteEvent(){
-  const url = location.href.replace(/\?.*/, '').replace(/\/\d+(?=\/|$)/g, '/_id_')
-  if(url == currUrl) return
+  const url = window.location.href.replace(/\?.*/, '').replace(/\/\d+(?=\/|$)/g, '/_id_')
+  if(url === currUrl) return
   sendEvent(url, 'routeChanging', currUrl)
   currUrl = url
 }

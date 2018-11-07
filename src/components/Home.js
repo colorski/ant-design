@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
-import Icon from './Icon';
+import { Layout, Breadcrumb } from 'antd';
+//import { Link } from 'react-router-dom';
+//import Icon from './Icon';
+import Header from '../containers/HeaderContainer';
+import Footer from './Footer';
+
+
 export default class Home extends Component {
   render () {
-    return <div className="main">
-      Home Component
-      <Icon type="send" onClick={()=>this.fn()} />
-    </div>
-  }
-  fn(){
-    window.MESSAGER.warn('请输入用户名！',2);
+    const { Content } = Layout;
+    return <Layout className="layout ski-layout">
+      <Header />
+
+      <Content>
+        <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>Content</div>
+      </Content>
+
+      <Footer />
+    </Layout>
   }
 }

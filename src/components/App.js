@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Home from './Home';
-import Login from '../containers/LoginContainer';
 import Global from '../components/Global';
+import Login from '../containers/LoginContainer';
+import Test from './Test';
 
 export default class extends Component{
 
@@ -15,18 +16,17 @@ export default class extends Component{
   renderApp(){
     if(this.props.logged===null) return null
     if(!this.props.logged) return <Login />
-    return this.renderRouter()
 
+    return this.renderRouter()
   }
 
   renderRouter(){
     return <BrowserRouter>
       <React.Fragment>
         <Route path="/" exact component={ Home }></Route>
-        {/* <Route path="workbench" component={Workbench} />
-        <Route path="calllog/:schoolId" component={CallLog} />
-        <Route path="remind" component={Remind} />
-        <Route path="*" component={NotFound}/> */}
+        <Route path="/home" component={ Home }></Route>
+        <Route path="/test" component={Test} />
+        {/* <Route path="/login" component={Login} /> */}
       </React.Fragment>
     </BrowserRouter>
   }

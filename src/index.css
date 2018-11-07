@@ -3,3 +3,51 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+.ski-layout .ant-layout-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  width: 100%;
+  padding: 0 1rem;
+  background-color: #fff;
+  border-bottom: 1px solid #e8e8e8;
+  box-shadow: 0 0 2px #ddd;
+}
+.ski-layout .ant-menu-horizontal {
+  flex: 1;
+  border-bottom: none;
+}
+.ski-layout .ant-layout-header svg {
+  width: 60px;
+}
+
+.ski-layout .ant-layout-content {
+  margin-top: 80px;
+  padding: 0 1rem;
+}
+
+
+
+
+
+.ski-layout .ant-layout-footer {
+  display: flex;
+  padding: 16px 1rem;
+}
+.ski-layout .ant-layout-footer p {
+  flex: 1;
+}
+.ski-layout .ant-layout-footer p:last-child {
+  text-align: right;
+}
+
+
+
+
+
+
+
+
+

@@ -18,17 +18,16 @@ export const login = (userName, passWord) => (dispatch) => {
   if(!userName){
     message.warning('请输入用户名！');
     return false;
-  }
-  if(!passWord){
+  }else if(!passWord){
     message.warning('请输入密码！');
     return false;
+  }else{
+    dispatch({type: LOGIN_NAME, userName: userName})
+    dispatch({type: LOGIN_PASSWORD, passWord: passWord})
+    dispatch({type: LOGGED, logged: true})
+  
+    storage.setItem('userName',userName)
+    storage.setItem('passWord',passWord)
+
   }
-
-  dispatch({type: LOGIN_NAME, userName: userName})
-  dispatch({type: LOGIN_PASSWORD, passWord: passWord})
-  dispatch({type: LOGGED, logged: true})
-
-  storage.setItem('userName',userName)
-  storage.setItem('passWord',passWord)
-
 }

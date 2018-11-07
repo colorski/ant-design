@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "ajv": "^6.0.0",
     "antd": "^3.10.3",
     "autoprefixer": "^9.2.1",
     "babel": "^6.23.0",
