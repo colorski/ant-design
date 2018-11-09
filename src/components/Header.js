@@ -22,7 +22,8 @@ export default class Header extends Component {
     }
 
     const userCenterMenu = (
-      <Menu 
+      <Menu
+        onClick={memuClickEvent}
         defaultSelectedKeys={arrPathname}
       >
         <Menu.Item key="userCenter"><Link to="/userCenter">个人中心</Link></Menu.Item>
