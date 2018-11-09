@@ -3,6 +3,8 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import Home from './Home';
 import Global from '../components/Global';
 import Login from '../containers/LoginContainer';
+import UserCenter from '../components/UserCenter';
+import Customer from '../components/Customer';
 import Test from './Test';
 
 export default class extends Component{
@@ -25,6 +27,8 @@ export default class extends Component{
       <React.Fragment>
         <Route path="/" exact component={ Home }></Route>
         <Route path="/home" component={ Home }></Route>
+        <Route path="/userCenter" component={ UserCenter } />
+        <Route path="/customer" component={ Customer } />
         <Route path="/test" component={Test} />
         {/* <Route path="/login" component={Login} /> */}
       </React.Fragment>

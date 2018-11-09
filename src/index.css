@@ -19,8 +19,9 @@ body {
   flex: 1;
   border-bottom: none;
 }
-.ski-layout .ant-layout-header svg {
+.ski-layout .ant-layout-header .logo {
   width: 60px;
+  padding-top: 10px;
 }
 
 .ski-layout .ant-layout-content {
@@ -38,6 +39,7 @@ body {
 }
 .ski-layout .ant-layout-footer p {
   flex: 1;
+  margin-bottom: 0;
 }
 .ski-layout .ant-layout-footer p:last-child {
   text-align: right;

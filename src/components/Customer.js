@@ -6,14 +6,14 @@ import Header from '../containers/HeaderContainer';
 import Footer from './Footer';
 
 
-export default class Home extends Component {
+export default class Customer extends Component {
   render () {
     const { Content } = Layout;
     return <Layout className="layout ski-layout">
       <Header />
 
       <Content>
-        <div style={{ background: '#fff', padding: 0, minHeight: 280 }}>Content</div>
+        <div style={{ background: '#fff', padding: 0, minHeight: 280 }}>Customer</div>
       </Content>
 
       <Footer />

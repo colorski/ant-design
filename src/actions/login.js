@@ -6,7 +6,7 @@ export const LOGGED = 'login/LOGGED'
 export const LOGIN_NAME = 'login/LOGIN_NAME'
 export const LOGIN_PASSWORD = 'login/LOGIN_PASSWORD'
 
-const storage = window.localStorage;
+const storage = window.sessionStorage;
 
 export const getStorageData = () => (dispatch) =>{
   dispatch({type: LOGIN_NAME, userName: storage.getItem('userName')})

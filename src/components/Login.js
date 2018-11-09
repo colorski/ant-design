@@ -24,7 +24,7 @@ export default class Login extends Component {
       <div className="login-body">
         <div className="logo"><ReactIcon /></div>
         <div className="li">
-          <Input addonBefore="用户名：" defaultValue={userName} onChange={this.handleChangeUserName} />
+          <Input addonBefore="用户名：" defaultValue={userName} onChange={this.handleChangeUserName} placeholder="输入你的名字试试" />
         </div>
         <div className="li">
           <Input type="password" addonBefore="密码：" defaultValue={passWord} onChange={this.handleChangeUserPwd} />

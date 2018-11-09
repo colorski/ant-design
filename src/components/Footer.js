@@ -7,7 +7,7 @@ export default class Footer extends Component {
 
     return <Footer>
       <p>Ant Design ©2018</p>
-      <p><a href="https://github.com/colorski/">github.com/colorski</a></p>
+      <p><a href="https://github.com/colorski/" target="_blank" rel="noopener noreferrer">github.com/colorski</a></p>
     </Footer>
   }
 }
