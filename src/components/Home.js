@@ -39,7 +39,7 @@ export default class Home extends Component {
           </Row>
         </Card>
 
-        <Card title="指标" bordered={false} className="ski-card ski-pad" extra={<span>（销售指标 / 单位：万元）</span>}>
+        <Card title="指标" bordered={false} className="ski-card" extra={<span>（销售指标 / 单位：万元）</span>}>
           <Row gutter={24}>
             <Col span={6}>
               <Card title={cardTitle('今日')}><div className="flex"><p>12</p><p>12</p><p>100%</p></div></Card>

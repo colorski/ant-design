@@ -57,10 +57,10 @@ body {
   cursor: pointer;
   color: #ccc;
 }
-.ski-layout .ski-pad .flex {
+.ski-layout .ski-card .flex {
   display: flex;
 }
-.ski-layout .ski-pad .flex p {
+.ski-layout .ski-card .flex p {
   margin-bottom: 0;
   flex: 1;
 }
