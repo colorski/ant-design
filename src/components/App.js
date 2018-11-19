@@ -16,9 +16,8 @@ export default class extends Component{
     </div>
   }
   renderApp(){
-    if(this.props.logged===null) return null
-    if(!this.props.logged) return <Login />
-
+    const logged = window.sessionStorage.getItem('logged')
+    if(!logged) return <Login />
     return this.renderRouter()
   }
 

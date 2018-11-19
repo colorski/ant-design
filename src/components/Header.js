@@ -11,7 +11,7 @@ export default class Header extends Component {
   }
   
   render () {
-    const { userName } = this.props;
+    const userName = window.sessionStorage.getItem('userName');
     const { Header } = Layout;
 
     //通过获取key的值然后setState有问题，通过window.location.pathname获取

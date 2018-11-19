@@ -32,9 +32,6 @@ body {
 }
 
 
-
-
-
 .ski-layout .ant-layout-footer {
   min-width: 768px;
   display: flex;
@@ -48,7 +45,9 @@ body {
   text-align: right;
 }
 
-
+.ski-layout .ski-card {
+  margin-bottom: 10px;
+}
 
 
 

@@ -17,8 +17,8 @@ export default class Login extends Component {
   render () {
     const { onLogin, userName, passWord } = this.props;
 
-    const _userName = this.state.userName?this.state.userName:this.props.userName;
-    const _passWord = this.state.passWord?this.state.passWord:this.props.passWord;
+    const _userName = this.state.userName?this.state.userName:userName;
+    const _passWord = this.state.passWord?this.state.passWord:passWord;
 
     return <div className="login" onKeyUp={e=> e.keyCode===13 && onLogin(_userName, _passWord)}>
       <div className="login-body">
