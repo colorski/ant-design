@@ -11,7 +11,6 @@ const storage = window.sessionStorage;
 export const getStorageData = () => (dispatch) =>{
   dispatch({type: LOGIN_NAME, userName: storage.getItem('userName')})
   dispatch({type: LOGIN_PASSWORD, passWord: storage.getItem('passWord')})
-  //dispatch({type: LOGGED, logged: storage.getItem('logged')})
 }
 
 export const login = (userName, passWord) => (dispatch) => {
@@ -28,6 +27,7 @@ export const login = (userName, passWord) => (dispatch) => {
   
     storage.setItem('userName',userName)
     storage.setItem('passWord',passWord)
+    storage.setItem('logged',true)
 
   }
 }

@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  min-width: 768px;
 }
 .ski-layout .ant-layout-header {
   position: fixed;
@@ -10,6 +11,7 @@ body {
   z-index: 1000;
   display: flex;
   width: 100%;
+  min-width: 768px;
   padding: 0 1rem;
   background-color: #fff;
   border-bottom: 1px solid #e8e8e8;
@@ -30,10 +32,8 @@ body {
 }
 
 
-
-
-
 .ski-layout .ant-layout-footer {
+  min-width: 768px;
   display: flex;
   padding: 16px 1rem;
 }
@@ -45,7 +45,9 @@ body {
   text-align: right;
 }
 
-
+.ski-layout .ski-card {
+  margin-bottom: 10px;
+}
 
 
 
