@@ -48,8 +48,22 @@ body {
 .ski-layout .ski-card {
   margin-bottom: 10px;
 }
-
-
+.ski-layout .brief b {
+  font-size: 16px;
+}
+.ski-layout .brief i {
+  float: right;
+  margin-top: 4px;
+  cursor: pointer;
+  color: #ccc;
+}
+.ski-layout .ski-pad .flex {
+  display: flex;
+}
+.ski-layout .ski-pad .flex p {
+  margin-bottom: 0;
+  flex: 1;
+}
 
 
 
