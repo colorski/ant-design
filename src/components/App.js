@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Home from './Home';
-import Global from '../components/Global';
+import Home from '../containers/HomeContainer';
 import Login from '../containers/LoginContainer';
+import Global from '../components/Global';
 import UserCenter from '../components/UserCenter';
 import Customer from '../components/Customer';
 import Test from './Test';
