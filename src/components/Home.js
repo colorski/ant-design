@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Layout, Card, Col, Row, Icon, Modal, Table, message, Collapse } from 'antd';
+import { Link } from 'react-router-dom';
+import { Layout, Card, Col, Row, Icon, Modal, Table, message, Collapse, Alert } from 'antd';
 import _ from 'underscore';
 import moment from 'moment';
 import Header from '../containers/HeaderContainer';
 import Footer from './Footer';
-
-import { logType } from '../data/logType';
 
 const Panel = Collapse.Panel;
 
@@ -193,19 +192,24 @@ export default class Home extends Component {
   }
 
   renderBriefingModalLog (data) {
-    return <Collapse defaultActiveKey={[data[0].id]} className='ski-collapse'>
-      {
-        _.map(data, (d)=>
-          <Panel header={`${d.date}工作日志`} key={d.id}>
-            <p>{d.content}</p>
-            <div className="foot">
-              <p>作者：{d.author}</p>
-              <p>创建时间：{d.createTime}</p>
-            </div>
-          </Panel>
-        )
-      }
-    </Collapse>
+    const { userName, logToday } = this.props;
+
+    return <div>
+      {!logToday && <Alert message={<div>{"今日工作日志未填写！"} <Link to="/writeLog">去填写 <Icon type="right" style={{fontSize: '12px'}} /></Link></div>} type="warning" closable style={{marginBottom: '10px'}} />}
+      <Collapse defaultActiveKey={[data[0].id]} className='ski-collapse'>
+        {
+          _.map(data, (d)=>
+            <Panel header={`${d.date}工作日志`} key={d.id}>
+              <p>{d.content}</p>
+              <div className="foot">
+                <p>作者：{userName?userName:d.author}</p>
+                <p>创建时间：{d.createTime}</p>
+              </div>
+            </Panel>
+          )
+        }
+      </Collapse>
+    </div>
   }
 
   // 指标

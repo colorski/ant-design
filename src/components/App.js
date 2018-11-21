@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Home from '../containers/HomeContainer';
 import Login from '../containers/LoginContainer';
+import WriteLog from '../containers/WriteLogContainer';
 import Global from '../components/Global';
 import UserCenter from '../components/UserCenter';
 import Customer from '../components/Customer';
@@ -28,6 +29,7 @@ export default class extends Component{
         <Route path="/home" component={ Home }></Route>
         <Route path="/userCenter" component={ UserCenter } />
         <Route path="/customer" component={ Customer } />
+        <Route path="/writeLog" component={ WriteLog } />
         <Route path="/test" component={Test} />
         {/* <Route path="/login" component={Login} /> */}
       </React.Fragment>

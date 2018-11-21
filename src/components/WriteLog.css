@@ -1,0 +1,23 @@
+.ski-log  .ski-col {
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+.ski-log-head {
+  display: flex;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}
+.ski-log-head p {
+  flex: 1;
+}
+.ski-log  .ski-col textarea {
+  width:100%;
+  padding: 15px;
+  border: 1px solid #ddd;
+}
+.ski-log  .ski-col textarea:focus {
+  border-color: #1890ff;
+  outline: none;
+}

@@ -5,7 +5,8 @@ import { init } from '../actions/home'
 export default connect(function(state){
   return {
     briefing: state.home.briefing,
-    indicators: state.home.indicators
+    indicators: state.home.indicators,
+    userName: state.login.userName
   }
 }, function(dispatch){
   return {
