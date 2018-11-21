@@ -1,24 +1,31 @@
 import React, { Component } from 'react';
-import { Layout, Card, Col, Row, Icon, Modal } from 'antd';
+import { Layout, Card, Col, Row, Icon, Modal, Table, message, Collapse } from 'antd';
 import _ from 'underscore';
 import moment from 'moment';
 import Header from '../containers/HeaderContainer';
 import Footer from './Footer';
 
+import { logType } from '../data/logType';
+
+const Panel = Collapse.Panel;
 
 export default class Home extends Component {
   constructor (props){
     super(props)
     this.state = {
-      visible: false
+      currentBriefId: null,
+      visible: false,
+      filterDropdownVisible: false,
+      data: [],
+      searchText: '',
+      filtered: false,
     }
-    this.showBriefContnetModal = this.showBriefContnetModal.bind(this);
   }
 
   render () {
     const { Content } = Layout;
     const lastSevenDays = moment().subtract(7, 'days').format('YYYY.MM.DD') + '~' + moment().format('YYYY.MM.DD');
-    
+
     return <Layout className="layout ski-layout">
       <Header />
 
@@ -39,30 +46,169 @@ export default class Home extends Component {
 
       <Footer />
 
-      <Modal
-        title="Basic Modal"
-        visible={this.state.visible}
-        onOk={this.handleOk}
-        onCancel={this.handleCancel}
-        footer={null}
-      >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Modal>
+      {this.renderBriefingModal()}
       
     </Layout>
   }
 
+  // 简报
   renderBriefing () {
     const { briefing } = this.props;
     return _.map(briefing, (d)=>
       <Col span={4} key={d.id}>
-        <Card title={d.title}><b>{d.total}</b><Icon type="right" onClick={this.showBriefContnetModal} /></Card>
+        <Card title={d.title}><b>{d.total}</b><Icon type="right" index={d.id} onClick={()=>{this.showBriefContnetModal(d.id)}} /></Card>
       </Col>
     )
   }
 
+  renderBriefingModal () {
+    const { briefing } = this.props;
+    const briefId = this.state.currentBriefId;
+
+    const currentBriefData = _.compact(_.map(briefing, (d)=>{if(d.id===briefId) return d}))
+    const data = currentBriefData.length>0?currentBriefData[0].list:[]
+
+    const tit = currentBriefData.length>0?currentBriefData[0].title:'数据'
+    const commingSevenDays = `（${moment().format('MM.DD') + '~' + moment().subtract(-7, 'days').format('MM.DD')}）`;
+
+    return <Modal
+        title={briefId==='004'?`近7天`+tit+commingSevenDays:`近7天`+tit}
+        visible={this.state.visible}
+        onCancel={this.handleCancel}
+        footer={null}
+        width={briefId==='003'?1000:600}
+      >
+        {briefId==='006'?this.renderBriefingModalLog(data):this.renderBriefingModalContent(briefId, data)}
+      </Modal>
+  }
+
+  renderBriefingModalContent (briefId, data) {
+    let columns = [];
+    const baseColumns = [
+      {
+        title: 'Id',
+        dataIndex: 'id',
+        key: 'id',
+        width: 50,
+        fixed: 'left'
+      },
+      {
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name',
+      }
+    ];
+
+    switch (briefId) {
+      case '001':
+        columns.push(...baseColumns, ...[
+          {
+            title: 'Address',
+            dataIndex: 'address',
+            key: 'address',
+          },
+          {
+            title: 'Wealth',
+            dataIndex: 'wealth',
+            key: 'wealth',
+          }
+        ])
+        break;
+      case '002':
+        columns.push(...baseColumns, ...[
+          {
+            title: 'Phone',
+            dataIndex: 'phone',
+            key: 'phone',
+          },
+          {
+            title: 'Componey',
+            dataIndex: 'componey',
+            key: 'componey',
+          }
+        ])
+        break;
+      case '003':
+        columns.push(...baseColumns, ...[
+          {
+            title: 'Description',
+            dataIndex: 'description',
+            key: 'description',
+          },
+          {
+            title: 'Componey',
+            dataIndex: 'componey',
+            key: 'componey',
+          },
+          {
+            title: 'Action',
+            dataIndex: 'action',
+            key: 'action',
+            fixed: 'right',
+            width: 70,
+            render: (text, record)=><span style={{color: '#1890ff', cursor: 'pointer'}} onClick={()=>{ message.info('进入商机详情页，id为：'+record.id) }}>详情 <Icon type='right' size='small' style={{fontSize: '12px'}} /></span>
+          }
+        ])
+        break;
+      case '004':
+        columns = [
+          {
+            title: 'Date',
+            dataIndex: 'date',
+            key: 'date',
+            width: 90
+          },
+          {
+            title: 'City',
+            dataIndex: 'city',
+            key: 'city',
+            width: 50
+          },
+          {
+            title: 'Linkman',
+            dataIndex: 'linkman',
+            key: 'linkman',
+            width: 70
+          },
+          {
+            title: 'Wechat',
+            dataIndex: 'wechat',
+            key: 'wechat',
+            width: 100
+          },
+          {
+            title: 'Detail',
+            dataIndex: 'detail',
+            key: 'detail',
+          },
+        ]
+        break;
+  
+      default:
+        break;
+    }
+
+    return <Table columns={columns} dataSource={data} rowKey={data => data.id} size="small" />;
+    
+  }
+
+  renderBriefingModalLog (data) {
+    return <Collapse defaultActiveKey={[data[0].id]} className='ski-collapse'>
+      {
+        _.map(data, (d)=>
+          <Panel header={`${d.date}工作日志`} key={d.id}>
+            <p>{d.content}</p>
+            <div className="foot">
+              <p>作者：{d.author}</p>
+              <p>创建时间：{d.createTime}</p>
+            </div>
+          </Panel>
+        )
+      }
+    </Collapse>
+  }
+
+  // 指标
   renderIndicators () {
     const { indicators } = this.props;
     return _.map(indicators, (d)=>
@@ -74,12 +220,11 @@ export default class Home extends Component {
     )
   }
 
-  showBriefContnetModal = () => {
-    this.setState({visible: true})
-  }
-
-  handleOk = () => {
-    this.setState({visible: false})
+  showBriefContnetModal = (id) => {
+    this.setState({
+      currentBriefId: id,
+      visible: true
+    })
   }
 
   handleCancel = () => {
