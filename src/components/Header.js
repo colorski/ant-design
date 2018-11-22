@@ -5,10 +5,6 @@ import ReactIcon from './ReactIcon';
 import { nav } from '../data/nav';
 
 export default class Header extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {}
-  }
   
   render () {
     const userName = window.sessionStorage.getItem('userName');
@@ -29,6 +25,7 @@ export default class Header extends Component {
         defaultSelectedKeys={arrPathname}
       >
         <Menu.Item key="userCenter"><Link to="/userCenter">个人中心</Link></Menu.Item>
+        <Menu.Item key="writeLog"><Link to="/writeLog">工作日志</Link></Menu.Item>
         <Menu.Item key="changePassword">修改密码</Menu.Item>
         <Menu.Item key="" disabled>其它内容</Menu.Item>
       </Menu>

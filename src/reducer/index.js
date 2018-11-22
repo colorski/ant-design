@@ -2,9 +2,11 @@ import { combineReducers } from 'redux' //from 'redux-immutable'注意：这里�
 import global from './global'
 import login from './login'
 import home from './home'
+import log from './log'
 
 export default combineReducers({
   global,
   login,
-  home
+  home,
+  log
 });

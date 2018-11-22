@@ -1,12 +1,26 @@
-.ski-log  .ski-col {
+.ski-log-header {
+  display: flex;
   padding: 20px;
+  background-color: #fff;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+}
+.ski-log-header h1 {
+  flex: 1;
+  margin: 0;
+  font-size: 18px;
+}
+.ski-log-header span {
+  line-height: 27px;
+}
+.ski-log  .ski-col {
+  padding: 25px;
   background-color: #fff;
   border: 1px solid #ddd;
 }
 .ski-log-head {
   display: flex;
-  padding: 10px;
-  margin-bottom: 20px;
+  padding-bottom: 10px;
   border-bottom: 1px solid #ddd;
 }
 .ski-log-head p {
@@ -17,7 +31,40 @@
   padding: 15px;
   border: 1px solid #ddd;
 }
-.ski-log  .ski-col textarea:focus {
+.ski-log .ski-col textarea:focus {
   border-color: #1890ff;
   outline: none;
+}
+.ski-log .ski-log-form {
+  display: flex;
+  margin: 20px 0;
+}
+.ski-log .ski-log-form span {
+  display: inline-block;
+  width: 60px;
+  line-height: 32px;
+}
+.ski-log .ski-log-form span .anticon {
+  margin-left: 2px;
+  font-size: 14px;
+  color: #ccc;
+}
+.ski-log .ski-log-form input,
+.ski-log .ski-log-form textarea {
+  flex: 1;
+  border-radius: 4px;
+}
+.ski-log .ski-log-form textarea::placeholder {
+  color: #ccc;
+}
+.ski-log .ski-log-form button {
+  float: right;
+}
+
+.ski-log-summary {
+  padding:21px;
+  border-bottom: 1px solid #f2f2f2;
+}
+.ski-log-summary strong {
+  font-size: 20px;
 }

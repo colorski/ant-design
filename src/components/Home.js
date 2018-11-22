@@ -192,10 +192,11 @@ export default class Home extends Component {
   }
 
   renderBriefingModalLog (data) {
-    const { userName, logToday } = this.props;
+    const { userName, todayLog } = this.props;
+    if(todayLog) data=[todayLog].concat(data)
 
     return <div>
-      {!logToday && <Alert message={<div>{"今日工作日志未填写！"} <Link to="/writeLog">去填写 <Icon type="right" style={{fontSize: '12px'}} /></Link></div>} type="warning" closable style={{marginBottom: '10px'}} />}
+      {!todayLog && <Alert message={<div>{"今日工作日志未填写！"} <Link to="/writeLog">去填写 <Icon type="right" style={{fontSize: '12px'}} /></Link></div>} type="warning" closable style={{marginBottom: '10px'}} />}
       <Collapse defaultActiveKey={[data[0].id]} className='ski-collapse'>
         {
           _.map(data, (d)=>
