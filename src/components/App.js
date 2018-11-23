@@ -6,6 +6,7 @@ import WriteLog from '../containers/WriteLogContainer';
 import Global from '../components/Global';
 import UserCenter from '../components/UserCenter';
 import Customer from '../components/Customer';
+import VersionLog from '../components/VersionLog';
 import Test from './Test';
 
 export default class extends Component{
@@ -30,6 +31,7 @@ export default class extends Component{
         <Route path="/userCenter" component={ UserCenter } />
         <Route path="/customer" component={ Customer } />
         <Route path="/writeLog" component={ WriteLog } />
+        <Route path="/versionLog" component={ VersionLog } />
         <Route path="/test" component={Test} />
         {/* <Route path="/login" component={Login} /> */}
       </React.Fragment>

@@ -79,6 +79,9 @@ export function parseDateRange1 (value){
       dateBegin = moment().startOf('years').format(dateFmt)
       dateEnd = moment().endOf('years').format(dateFmt)
       break;
+      
+    default:
+      break;
   }
 
   return [dateBegin, dateEnd]

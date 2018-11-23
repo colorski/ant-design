@@ -1,18 +1,4 @@
-.ski-log-header {
-  display: flex;
-  padding: 20px;
-  background-color: #fff;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-}
-.ski-log-header h1 {
-  flex: 1;
-  margin: 0;
-  font-size: 18px;
-}
-.ski-log-header span {
-  line-height: 27px;
-}
+
 .ski-log  .ski-col {
   padding: 25px;
   background-color: #fff;

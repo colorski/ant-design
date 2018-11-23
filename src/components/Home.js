@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Card, Col, Row, Icon, Modal, Table, message, Collapse, Alert } from 'antd';
 import _ from 'underscore';
-import moment from 'moment';
+import { momentDays, momnetDay } from '../utils/momentTimes';
 import Header from '../containers/HeaderContainer';
 import Footer from './Footer';
 
@@ -23,7 +23,7 @@ export default class Home extends Component {
 
   render () {
     const { Content } = Layout;
-    const lastSevenDays = moment().subtract(7, 'days').format('YYYY.MM.DD') + '~' + moment().format('YYYY.MM.DD');
+    const lastSevenDays = momentDays(7) + '~' + momentDays(0);
 
     return <Layout className="layout ski-layout">
       <Header />
@@ -68,7 +68,7 @@ export default class Home extends Component {
     const data = currentBriefData.length>0?currentBriefData[0].list:[]
 
     const tit = currentBriefData.length>0?currentBriefData[0].title:'数据'
-    const commingSevenDays = `（${moment().format('MM.DD') + '~' + moment().subtract(-7, 'days').format('MM.DD')}）`;
+    const commingSevenDays = `（${momnetDay(0) + '~' + momnetDay(-7)}）`;
 
     return <Modal
         title={briefId==='004'?`近7天`+tit+commingSevenDays:`近7天`+tit}

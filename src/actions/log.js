@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import moment from 'moment';
+import {momentDays, momnetDaysAndTimes} from '../utils/momentTimes';
 import { dailySummary } from '../data/log';
 
 export const INIT = 'log/INIT'
@@ -31,8 +31,8 @@ export const submitLog = (type, content) => (dispatch) => {
       type: type,
       content: content,
       author: sessionStorage.getItem('userName'),
-      date: moment().format("YYYY-MM-DD"),
-      createTime: moment().format("YYYY-MM-DD HH:mm:ss")
+      date: momentDays(0),
+      createTime: momnetDaysAndTimes(0)
     }
     dispatch({type: TODAY_LOG, todayLog: _todayLog})
   

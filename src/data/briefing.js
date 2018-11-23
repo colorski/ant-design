@@ -1,8 +1,5 @@
 // 首页 - 简报数据
-import moment from 'moment';
-
-const _date = (d) => moment().subtract(d, 'days').format('YYYY-MM-DD');
-const _createTime = (d) => moment().subtract(d, 'days').format('YYYY-MM-DD HH:mm:ss');
+import {momentDays, momnetDaysAndTimes} from '../utils/momentTimes';
 
 export const briefing = [
   {
@@ -232,7 +229,7 @@ export const briefing = [
     'list': [
       {
         id: '101',
-        date: moment().subtract(-1, 'days').format('YYYY.MM.DD'),
+        date: momentDays(-1),
         city: '北京',
         linkman: '张小龙',
         wechat: 'mht001',
@@ -240,7 +237,7 @@ export const briefing = [
       },
       {
         id: '102',
-        date: moment().subtract(-2, 'days').format('YYYY.MM.DD'),
+        date: momentDays(-2),
         city: '深圳',
         linkman: '孙亚芳',
         wechat: 'syf001',
@@ -248,7 +245,7 @@ export const briefing = [
       },
       {
         id: '103',
-        date: moment().subtract(-3, 'days').format('YYYY.MM.DD'),
+        date: momentDays(-3),
         city: '泰安',
         linkman: '王伟',
         wechat: '13811148807',
@@ -272,48 +269,48 @@ export const briefing = [
     'list': [
       {
         id: '101',
-        date: _date(1),
-        createTime: _createTime(1),
+        date: momentDays(1),
+        createTime: momnetDaysAndTimes(1),
         type: 1,
         author: '胡彦斌',
         content: '大风大浪里翻滚，风平浪静中安稳，以为自己变得无坚不摧所向无敌，但到最后发现，所有无坚不摧也只是源于一颗变得不会再轻易为什么人或事起波澜的心，和修炼的一种可以迅速麻痹自己的能力。'
       },
       {
         id: '102',
-        date: _date(2),
-        createTime: _createTime(2),
+        date: momentDays(2),
+        createTime: momnetDaysAndTimes(2),
         type: 1,
         author: '胡彦斌',
         content: '深夜感伤，借酒浇愁。'
       },
       {
         id: '103',
-        date: _date(3),
-        createTime: _createTime(3),
+        date: momentDays(3),
+        createTime: momnetDaysAndTimes(3),
         type: 1,
         author: '胡彦斌',
         content: '再也没有那么多的欲语泪先流，大多数时候，只是默默的咽下这一切。'
       },
       {
         id: '104',
-        date: _date(4),
-        createTime: _createTime(4),
+        date: momentDays(4),
+        createTime: momnetDaysAndTimes(4),
         type: 1,
         author: '胡彦斌',
         content: '它们摸不到，看不清，就像是一道不深不浅的疤，不痒也不痛，平时不会注意到它，只有在你静下来，有时间审视自己的每一寸的时候，才会想起。'
       },
       {
         id: '105',
-        date: _date(5),
-        createTime: _createTime(5),
+        date: momentDays(5),
+        createTime: momnetDaysAndTimes(5),
         type: 1,
         author: '胡彦斌',
         content: '原来曾经这里有过一道没有流血就结痂了的疤。可笑的是，伤口划破的原因，有时候却记不起来了。'
       },
       {
         id: '106',
-        date: _date(6),
-        createTime: _createTime(6),
+        date: momentDays(6),
+        createTime: momnetDaysAndTimes(6),
         type: 1,
         author: '胡彦斌',
         content: '然后忽然在某天恍然发现，当初拼了命想要忘记的人和事，真的就这样忘了。那些印迹淡到让你恍若一梦，甚至在心底怀疑，ta真的来过吗?'

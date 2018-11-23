@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Row, Col, Radio, Input, Icon, Tooltip, Button, Modal } from 'antd';
 import _ from 'underscore';
-import moment from 'moment';
 import { logType } from '../data/log';
 import Header from '../containers/HeaderContainer';
 import Footer from './Footer';
+import { momentDays } from '../utils/momentTimes';
 import TimeLeft from './TimeLeft';
 import './WriteLog.css';
 
@@ -48,9 +48,9 @@ export default class WriteLog extends Component {
       <Header />
 
       <Content className="ski-log">
-        <div className="ski-log-header">
+        <div className="ski-header">
           <h1><Icon type="edit" /> 工作日志</h1>
-          <span>剩余时间：<TimeLeft /></span>
+          <span>剩余：<TimeLeft endTo="24:00:00" /> <Tooltip title="截至今晚 24:00:00"><Icon type="info-circle-o" style={{color:'#999'}} /></Tooltip></span>
         </div>
 
         <Row gutter={16}>
@@ -66,7 +66,7 @@ export default class WriteLog extends Component {
               </div>
               <div className="ski-log-form">
                 <span>标题<Tooltip title="标题不可修改！"><Icon type="info-circle-o" /></Tooltip>：</span>
-                <Input value={`${moment().format("YYYY-MM-DD")}工作日志`} disabled />
+                <Input value={`${momentDays(0)}工作日志`} disabled />
               </div>
               <div className="ski-log-form">
                 <span>内容<Tooltip title="内容为必填项！"><Icon type="info-circle-o" /></Tooltip>：</span>
@@ -139,8 +139,9 @@ export default class WriteLog extends Component {
       ]}
     >
       <p style={{textAlign: 'center', fontSize: '30px', color: 'green', margin: 0}}><Icon type="check-circle-o" /></p>
-      <p style={{textAlign: 'center', color: 'green'}}>日志已提交！ </p>
+      <p style={{textAlign: 'center', color: 'green'}}>今日日志已提交！</p>
       <p style={{textAlign: 'center'}}>您可以在 <b>“系统首页”</b> - <b>“简报”</b> - <b>“工作日志”</b> 里看到最新的日志列表！</p>
+      <p style={{textAlign: 'center'}}>如果刷新页面，此数据就没了哦^_^</p>
     </Modal>
   }
 
