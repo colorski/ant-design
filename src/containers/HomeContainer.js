@@ -6,6 +6,7 @@ export default connect(function(state){
   return {
     briefing: state.home.briefing,
     indicators: state.home.indicators,
+    echarts: state.home.echarts,
     userName: state.login.userName,
     todayLog: state.log.todayLog,
   }

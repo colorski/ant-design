@@ -3,7 +3,8 @@ import { combineReducers } from 'redux'
 import cr from '../utils/cr'
 import {
   GET_STORAGE_BRIEFING_DATA,
-  GET_STORAGE_INDICATORS_DATA
+  GET_STORAGE_INDICATORS_DATA,
+  GET_INDEX_ECHARTS_DATA
 } from '../actions/home'
 
 export default combineReducers({
@@ -14,6 +15,11 @@ export default combineReducers({
   }),
   indicators: cr(null,{
     [GET_STORAGE_INDICATORS_DATA]({data}){
+      return data
+    }
+  }),
+  echarts: cr(null,{
+    [GET_INDEX_ECHARTS_DATA]({data}){
       return data
     }
   }),

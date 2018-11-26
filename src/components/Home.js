@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Card, Col, Row, Icon, Modal, Table, message, Collapse, Alert } from 'antd';
 import _ from 'underscore';
+import EchartsHomeBasicLine from './echarts/EchartsHomeBasicLine';
+import EchartsHomeBasicBar from './echarts/EchartsHomeBasicBar';
 import { momentDays, momnetDay } from '../utils/momentTimes';
 import Header from '../containers/HeaderContainer';
 import Footer from './Footer';
@@ -23,7 +25,9 @@ export default class Home extends Component {
 
   render () {
     const { Content } = Layout;
-    const lastSevenDays = momentDays(7) + '~' + momentDays(0);
+    const lastSevenDays = momentDays(6) + '~' + momentDays(0);
+    const { echarts } = this.props;
+    console.log(echarts)
 
     return <Layout className="layout ski-layout">
       <Header />
@@ -41,6 +45,18 @@ export default class Home extends Component {
             {this.renderIndicators()}
           </Row>
         </Card>
+
+        <Card title="图表" bordered={false} className="ski-card">
+          <Row gutter={24}>
+            <Col span={12}>
+              <EchartsHomeBasicLine echartsData={echarts} />
+            </Col>
+            <Col span={12}>
+              <EchartsHomeBasicBar echartsData={echarts} />
+            </Col>
+          </Row>
+        </Card>
+
       </Content>
 
       <Footer />
@@ -213,6 +229,13 @@ export default class Home extends Component {
     </div>
   }
 
+  showBriefContnetModal = (id) => {
+    this.setState({
+      currentBriefId: id,
+      visible: true
+    })
+  }
+
   // 指标
   renderIndicators () {
     const { indicators } = this.props;
@@ -223,13 +246,6 @@ export default class Home extends Component {
         </Card>
       </Col>
     )
-  }
-
-  showBriefContnetModal = (id) => {
-    this.setState({
-      currentBriefId: id,
-      visible: true
-    })
   }
 
   handleCancel = () => {

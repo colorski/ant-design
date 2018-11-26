@@ -6,7 +6,7 @@ import { logType } from '../data/log';
 import Header from '../containers/HeaderContainer';
 import Footer from './Footer';
 import { momentDays } from '../utils/momentTimes';
-import TimeLeft from './TimeLeft';
+import LeftTime from './LeftTime';
 import './WriteLog.css';
 
 const RadioButton = Radio.Button;
@@ -50,7 +50,7 @@ export default class WriteLog extends Component {
       <Content className="ski-log">
         <div className="ski-header">
           <h1><Icon type="edit" /> 工作日志</h1>
-          <span>剩余：<TimeLeft endTo="24:00:00" /> <Tooltip title="截至今晚 24:00:00"><Icon type="info-circle-o" style={{color:'#999'}} /></Tooltip></span>
+          <span>剩余：<LeftTime endTo="24:00:00" /> <Tooltip title="截至今晚 24:00:00"><Icon type="info-circle-o" style={{color:'#999'}} /></Tooltip></span>
         </div>
 
         <Row gutter={16}>

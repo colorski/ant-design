@@ -10,7 +10,6 @@ export default class VersionLog extends Component {
   render () {
 
     const { Content } = Layout;
-    console.log(updateLogs)
 
     return <Layout className="layout ski-layout">
       <Header />

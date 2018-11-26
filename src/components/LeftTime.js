@@ -1,7 +1,7 @@
 //剩余时间
 import React, { Component } from 'react';
 
-export default class TimeLeft extends Component {
+export default class LeftTime extends Component {
   constructor (props) {
     super(props)
     this.state = {
