@@ -1,6 +1,6 @@
 import { briefing } from '../data/briefing';
 import { indicators } from '../data/indicators';
-import { sevenDaysData } from '../data/indexEchartsData';
+import { echartsData } from '../data/indexEchartsData';
 
 export const INIT = 'home/INIT'
 export const GET_STORAGE_BRIEFING_DATA = 'home/GET_STORAGE_BRIEFING_DATA'
@@ -23,5 +23,5 @@ export const getStorageIndicatorsData = () => (dispatch) =>{
 }
 //图表
 export const getIndexEchartsData = () => (dispatch) =>{
-  dispatch({type: GET_INDEX_ECHARTS_DATA, data: sevenDaysData || [] })
+  dispatch({type: GET_INDEX_ECHARTS_DATA, data: echartsData || [] })
 }

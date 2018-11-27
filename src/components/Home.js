@@ -26,8 +26,8 @@ export default class Home extends Component {
   render () {
     const { Content } = Layout;
     const lastSevenDays = momentDays(6) + '~' + momentDays(0);
-    const { echarts } = this.props;
-    console.log(echarts)
+    const sevenDays = this.props.echarts?this.props.echarts.sevenDays: null
+    const oneYear = this.props.echarts?this.props.echarts.oneYear: null
 
     return <Layout className="layout ski-layout">
       <Header />
@@ -49,10 +49,10 @@ export default class Home extends Component {
         <Card title="图表" bordered={false} className="ski-card">
           <Row gutter={24}>
             <Col span={12}>
-              <EchartsHomeBasicLine echartsData={echarts} />
+              <EchartsHomeBasicLine echartsData={sevenDays} />
             </Col>
             <Col span={12}>
-              <EchartsHomeBasicBar echartsData={echarts} />
+              <EchartsHomeBasicBar echartsData={oneYear} />
             </Col>
           </Row>
         </Card>

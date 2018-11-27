@@ -1,7 +1,14 @@
 // 版本更新日志
-export const version = '1.0.2'
+export const version = '1.0.3'
 
 export const updateLogs = [
+  {
+    "version": "1.0.3",
+    "time": "2018-11-25",
+    "updates": [
+      "首页添加ECharts图表模块",
+    ]
+  },
   {
     "version": "1.0.2",
     "time": "2018-11-18",

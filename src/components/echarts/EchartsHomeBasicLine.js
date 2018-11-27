@@ -16,11 +16,13 @@ export default class EchartsHomeBasicLine extends Component {
     const arrAsc = arr => arr.sort((a, b) => a - b);
     const rangeDays = arrAsc(_.map(_.map(initArrayRange(7,0), (i)=>momentDays(i)), (d)=> d.substring(d.length-2)))
 
+    const colors = ['#5793f3', '#d14a61', '#675bba'];
     const getOption = ()=> ({
-      // title: {
-      //   text: '近七日数据',
-      //   left: 'left'
-      // },
+      color: colors,
+      title: {
+        text: '近七日新增',
+        left: 'left'
+      },
       tooltip: {
         trigger: 'item',
         formatter: '{a} <br/>{b}日: {c}'
