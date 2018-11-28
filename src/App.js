@@ -7,7 +7,7 @@ import AppContainer from './containers/AppContainer'
 
 const finalCreateStore = compose(
   applyMiddleware(thunk),
-  window.devToolsExtension ? window.devToolsExtension() : f => f
+  window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
 )(createStore)
 
 function configureStore(initialState) {
@@ -25,7 +25,7 @@ function configureStore(initialState) {
   return store
 }
 
-let initialState = { }
+let initialState = {}
 const store = configureStore(initialState)
 
 class App extends Component {

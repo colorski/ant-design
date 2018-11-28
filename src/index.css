@@ -83,18 +83,27 @@ body {
   text-align: right;
 }
 
-.ski-header {
+.ski-user-header {
   display: flex;
   padding: 20px;
   background-color: #fff;
   margin-bottom: 15px;
   border: 1px solid #ddd;
 }
-.ski-header h1 {
+.ski-user-header h1 {
   flex: 1;
   margin: 0;
   font-size: 18px;
 }
-.ski-header span {
+.ski-user-header span {
   line-height: 27px;
 }
+
+.ski-user-con {
+  background-color: #fff;
+  padding: 30px 20px 0;
+  border: 1px solid #ddd;
+}
+
+
+

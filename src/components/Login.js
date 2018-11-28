@@ -47,7 +47,8 @@ export default class Login extends Component {
   }
 
   componentDidMount () {
-    this.props.onGetStorageData();
+    this.props.onGetStorageData()
+    //setTimeout(()=>{this.props.onGetStorageData()},500)
   }
 
 }

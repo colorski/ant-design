@@ -26,7 +26,7 @@ export default class Header extends Component {
       >
         <Menu.Item key="userCenter"><Link to="/userCenter">个人中心</Link></Menu.Item>
         <Menu.Item key="writeLog"><Link to="/writeLog">工作日志</Link></Menu.Item>
-        <Menu.Item key="changePassword">修改密码</Menu.Item>
+        <Menu.Item key="changePassword"><Link to="/changePassword">修改密码</Link></Menu.Item>
         <Menu.Item key="" disabled>其它内容</Menu.Item>
       </Menu>
     )

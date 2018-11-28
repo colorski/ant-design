@@ -253,7 +253,8 @@ export default class Home extends Component {
   }
 
   componentDidMount(){
-    this.props.onInit();
+    this.props.onInit()
+    //setTimeout(()=>{this.props.onInit()},500)
   }
 
 }

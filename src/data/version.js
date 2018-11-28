@@ -7,6 +7,7 @@ export const updateLogs = [
     "time": "2018-11-25",
     "updates": [
       "首页添加ECharts图表模块",
+      "解决升级redux至v4.0.1版本后，页面报错的问题；（Redux DevTools v2.16.0 -> v2.15.5）"
     ]
   },
   {

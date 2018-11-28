@@ -15,12 +15,12 @@ export default class VersionLog extends Component {
       <Header />
 
       <Content>
-        <div className="ski-header">
+        <div className="ski-user-header">
           <h1><Icon type="book" /> 更新日志</h1>
           <span>当前版本：@{version}</span>
         </div>
 
-        <div style={{backgroundColor: '#fff', padding:'30px 20px 0', border: '1px solid #ddd'}}>
+        <div className="ski-user">
           <Timeline>
             {
               _.map(updateLogs, (d)=> (

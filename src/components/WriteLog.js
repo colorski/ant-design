@@ -23,10 +23,6 @@ export default class WriteLog extends Component {
     }
   }
 
-  componentDidMount () {
-    this.props.onInit();
-  }
-
   render () {
 
     const { Content } = Layout;
@@ -48,7 +44,7 @@ export default class WriteLog extends Component {
       <Header />
 
       <Content className="ski-log">
-        <div className="ski-header">
+        <div className="ski-user-header">
           <h1><Icon type="edit" /> 工作日志</h1>
           <span>剩余：<LeftTime endTo="24:00:00" /> <Tooltip title="截至今晚 24:00:00"><Icon type="info-circle-o" style={{color:'#999'}} /></Tooltip></span>
         </div>
@@ -154,5 +150,10 @@ export default class WriteLog extends Component {
 
   handleCancel = () => {
     this.setState({visible: false})
+  }
+
+  componentDidMount () {
+    //this.props.onInit();
+    setTimeout(()=>{this.props.onInit()},500)
   }
 }
