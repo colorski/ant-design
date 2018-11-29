@@ -66,11 +66,11 @@ class PasswordForm extends Component {
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 6 },
+        sm: { span: 9 },
       },
       wrapperCol: {
         xs: { span: 24 },
-        sm: { span: 14 },
+        sm: { span: 6 },
       },
     };
     const tailFormItemLayout = {
@@ -80,8 +80,8 @@ class PasswordForm extends Component {
           offset: 0,
         },
         sm: {
-          span: 14,
-          offset: 6,
+          span: 6,
+          offset: 9,
         },
       },
     };
@@ -130,7 +130,7 @@ class PasswordForm extends Component {
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit" className="login-form-button">
+          <Button type="primary" htmlType="submit" style={{display:'block'}}>
             提 交
           </Button>
         </FormItem>
