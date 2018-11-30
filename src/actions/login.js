@@ -6,13 +6,14 @@ export const LOGGED = 'login/LOGGED'
 export const LOGIN_NAME = 'login/LOGIN_NAME'
 export const LOGIN_PASSWORD = 'login/LOGIN_PASSWORD'
 
+//从session获取数据
 const storage = window.sessionStorage;
-
 export const getStorageData = () => (dispatch) =>{
   dispatch({type: LOGIN_NAME, userName: storage.getItem('userName')})
   dispatch({type: LOGIN_PASSWORD, passWord: storage.getItem('passWord')})
 }
 
+//登录
 export const login = (userName, passWord) => (dispatch) => {
   if(!userName){
     message.warning('请输入用户名！');
@@ -29,5 +30,11 @@ export const login = (userName, passWord) => (dispatch) => {
     storage.setItem('passWord',passWord)
     storage.setItem('logged',true)
 
+    window.location.href="/";
   }
+}
+
+//修改密码
+export const changePassword = (passWord) => (dispatch) => {
+  dispatch({type: LOGIN_PASSWORD, passWord: passWord})
 }

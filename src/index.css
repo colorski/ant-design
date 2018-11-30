@@ -104,6 +104,14 @@ body {
   padding: 30px 20px 0;
   border: 1px solid #ddd;
 }
+.ski-user-con h3 {
+  padding: 0 10px 15px;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+.center-row {
+  padding: 20px 10px;
+}
 
 
 

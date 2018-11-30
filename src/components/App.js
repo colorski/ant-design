@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Home from '../containers/HomeContainer';
-import Login from '../containers/LoginContainer';
-import WriteLog from '../containers/WriteLogContainer';
-import ChangePassword from '../containers/ChangePasswordContainer';
+import Home from '../containers/HomeCtn';
+import Login from '../containers/LoginCtn';
+import UserCenter from '../containers/UserCenterCtn';
+import WriteLog from '../containers/WriteLogCtn';
+import ChangePassword from '../containers/ChangePasswordCtn';
 import Global from '../components/Global';
-import UserCenter from '../components/UserCenter';
 import Customer from '../components/Customer';
 import VersionLog from '../components/VersionLog';
 import Test from './Test';
@@ -29,6 +29,7 @@ export default class extends Component{
       <React.Fragment>
         <Route path="/" exact component={ Home }></Route>
         <Route path="/home" component={ Home }></Route>
+        <Route path="/login" component={ Login }></Route>
         <Route path="/userCenter" component={ UserCenter } />
         <Route path="/customer" component={ Customer } />
         <Route path="/writeLog" component={ WriteLog } />

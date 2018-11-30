@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Layout, Icon, notification, Form, Input, Button, message } from 'antd';
-import Header from '../containers/HeaderContainer';
+import { Layout, Icon, Tooltip, Form, Input, Button, message } from 'antd';
+import Header from '../containers/HeaderCtn';
 import Footer from './Footer';
 
 const FormItem = Form.Item;
@@ -10,15 +10,8 @@ export default class ChangePassword extends Component {
 
     const { Content } = Layout;
 
-    const { passWord } = this.props;
-    const pwdNotification = () => {
-      notification.open({
-        message: '既然点我了就告诉你当前密码：',
-        icon: <Icon type="smile-o" style={{ color: '#108ee9' }} />,
-        description: <strong style={{fontSize: '30px', color: '#f00', textAlign: 'center'}}>{passWord || window.sessionStorage.getItem('passWord')}</strong>,
-        duration: 5,
-      });
-    };
+    const { passWord, onChangePassword } = this.props;
+    const _pwd = passWord?passWord:window.sessionStorage.getItem('passWord');
 
     return <Layout className="layout ski-layout">
       <Header />
@@ -26,11 +19,15 @@ export default class ChangePassword extends Component {
       <Content>
         <div className="ski-user-header">
           <h1><Icon type="code-o" /> 修改密码</h1>
-          <span><Icon type="smile-o" style={{cursor: 'pointer'}} onClick={()=>pwdNotification()} /></span>
+          <span>
+            <Tooltip placement="left" title={'当前密码为：'+ _pwd}>
+              <Icon type="smile-o" style={{cursor: 'pointer'}} />
+            </Tooltip>
+          </span>
         </div>
 
         <div className="ski-user-con">
-          <WrappedPasswordForm />
+          <WrappedPasswordForm onChangePassword={onChangePassword} />
         </div>
         
 
@@ -46,17 +43,26 @@ class PasswordForm extends Component {
   
   handleSubmit = (e) => {
     e.preventDefault();
-    const oldPassword = window.sessionStorage.getItem('passWord');
-    
+    const sessionStorage = window.sessionStorage;
+    const oldPassword = sessionStorage.getItem('passWord');
+    const { onChangePassword } = this.props;
+
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log(values);
         if(values.password_old !== oldPassword){
           message.error('旧密码不正确！');
+          return false;
         }
         if(values.password_1 !== values.password_2){
           message.error('两次密码不一致！');
+          return false;
         }
+        onChangePassword(values.password_2);
+        sessionStorage.setItem('passWord', values.password_2)
+
+        message.success('密码修改成功！请重新登录！')
+
+        setTimeout(()=>(window.location.href="/login"),1000)
       }
     });
   }
@@ -85,6 +91,7 @@ class PasswordForm extends Component {
         },
       },
     };
+
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
         <FormItem
@@ -130,13 +137,14 @@ class PasswordForm extends Component {
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit" style={{display:'block'}}>
+          <Button type="primary" htmlType="submit">
             提 交
           </Button>
         </FormItem>
       </Form>
     );
   }
+
 }
 
 const WrappedPasswordForm = Form.create()(PasswordForm);

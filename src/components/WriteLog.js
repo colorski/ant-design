@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Layout, Row, Col, Radio, Input, Icon, Tooltip, Button, Modal } from 'antd';
 import _ from 'underscore';
 import { logType } from '../data/log';
-import Header from '../containers/HeaderContainer';
+import Header from '../containers/HeaderCtn';
 import Footer from './Footer';
 import { momentDays } from '../utils/momentTimes';
 import LeftTime from './LeftTime';

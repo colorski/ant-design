@@ -5,7 +5,7 @@ import _ from 'underscore';
 import EchartsHomeBasicLine from './echarts/EchartsHomeBasicLine';
 import EchartsHomeBasicBar from './echarts/EchartsHomeBasicBar';
 import { momentDays, momnetDay } from '../utils/momentTimes';
-import Header from '../containers/HeaderContainer';
+import Header from '../containers/HeaderCtn';
 import Footer from './Footer';
 
 const Panel = Collapse.Panel;
