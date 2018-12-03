@@ -6,8 +6,19 @@ import Footer from './Footer';
 
 const FormItem = Form.Item;
 const AutoCompleteOption = AutoComplete.Option;
+    
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 6 },
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 14 },
+  },
+};
 
-const _webSite = ['.com', '.org', '.net'];
+const _webSite = ['.com', '.org', '.net', '.vip'];
 
 export default class UserCenter extends Component {
   render () {
@@ -53,6 +64,7 @@ export default class UserCenter extends Component {
 class BasicInfoForm extends Component {
   state = {
     autoCompleteResult: [],
+    edit: true
   };
   handleWebsiteChange = (value) => {
     let autoCompleteResult;
@@ -62,22 +74,12 @@ class BasicInfoForm extends Component {
       autoCompleteResult = _webSite.map(domain => `${value}${domain}`);
     }
     this.setState({ autoCompleteResult });
+    console.log(this.state)
   }
 
   render () {
     const { getFieldDecorator } = this.props.form;
     const { autoCompleteResult } = this.state;
-    
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 6 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 14 },
-      },
-    };
 
     const websiteOptions = autoCompleteResult.map(website => (
       <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
@@ -86,9 +88,15 @@ class BasicInfoForm extends Component {
     return <Form>
       <FormItem
         {...formItemLayout}
+        label="用户名"
+      >
+        22222
+      </FormItem>
+      <FormItem
+        {...formItemLayout}
         label="Website"
       >
-        {getFieldDecorator('website', {
+        {this.state.edit?getFieldDecorator('website', {
           rules: [{ required: true, message: 'Please input website!' }],
         })(
           <AutoComplete
@@ -98,7 +106,23 @@ class BasicInfoForm extends Component {
           >
             <Input />
           </AutoComplete>
-        )}
+        ):'123.com'}
+      </FormItem>
+      <FormItem
+        {...formItemLayout}
+        label="Website"
+      >
+        {this.state.edit?getFieldDecorator('website', {
+          rules: [{ required: true, message: 'Please input website!' }],
+        })(
+          <AutoComplete
+            dataSource={websiteOptions}
+            onChange={this.handleWebsiteChange}
+            placeholder="website"
+          >
+            <Input />
+          </AutoComplete>
+        ):'123.com'}
       </FormItem>
     </Form>
   }

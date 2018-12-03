@@ -14,7 +14,7 @@ export default class EchartsHomeBasicLine extends Component {
     //如：initArrayRange(8,1) -> [1, 2, 3, 4, 5, 6, 7]
     const initArrayRange = (end, start = 0) => Array.apply(null, Array(end - start)).map((v, i) => i + start);
     const arrAsc = arr => arr.sort((a, b) => a - b);
-    const rangeDays = arrAsc(_.map(_.map(initArrayRange(7,0), (i)=>momentDays(i)), (d)=> d.substring(d.length-2)))
+    const rangeDays = arrAsc(_.map(_.map(initArrayRange(7,0), (i)=>momentDays(i)), (d)=> d.substring(d.length-5)))
 
     const colors = ['#5793f3', '#d14a61', '#675bba'];
     const getOption = ()=> ({
@@ -25,7 +25,7 @@ export default class EchartsHomeBasicLine extends Component {
       },
       tooltip: {
         trigger: 'item',
-        formatter: '{a} <br/>{b}日: {c}'
+        formatter: '{a} <br/>{b}: {c}个'
       },
       legend: {
           left: 'center',
@@ -33,11 +33,15 @@ export default class EchartsHomeBasicLine extends Component {
       },
       xAxis: {
         type: 'category',
+        name: '（日期）',
         data: rangeDays
       },
-      yAxis: {
-        type: 'value'
-      },
+      yAxis: [
+        {
+          type: 'value',
+          name: '（单位 个）'
+        }
+      ],
       series: _series
     })
 
