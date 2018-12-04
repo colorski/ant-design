@@ -98,35 +98,23 @@ class BasicInfoForm extends Component {
       </FormItem>
       <FormItem
         {...formItemLayout}
-        label="Website"
+        label="员工编号"
       >
-        {this.state.edit?getFieldDecorator('website', {
-          rules: [{ required: true, message: 'Please input website!' }],
+        {this.state.edit?getFieldDecorator('jobNumber', {
+          rules: [{ required: true, message: '请填写员工编号！' }],
         })(
-          <AutoComplete
-            dataSource={websiteOptions}
-            onChange={this.handleWebsiteChange}
-            placeholder="website"
-          >
-            <Input />
-          </AutoComplete>
-        ):'123.com'}
+          <Input placeholder="员工编号" />
+        ):'123'}
       </FormItem>
       <FormItem
         {...formItemLayout}
-        label="Website"
+        label="部门"
       >
-        {this.state.edit?getFieldDecorator('website', {
-          rules: [{ required: true, message: 'Please input website!' }],
+        {this.state.edit?getFieldDecorator('department', {
+          rules: [{ required: true, message: '请选择部门！' }],
         })(
-          <AutoComplete
-            dataSource={websiteOptions}
-            onChange={this.handleWebsiteChange}
-            placeholder="website"
-          >
-            <Input />
-          </AutoComplete>
-        ):'123.com'}
+          <Input placeholder="员工编号" />
+        ):'123'}
       </FormItem>
     </Form>
   }
