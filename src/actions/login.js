@@ -30,7 +30,10 @@ export const login = (userName, passWord) => (dispatch) => {
     storage.setItem('passWord',passWord)
     storage.setItem('logged',true)
 
-    window.location.href="/";
+    const location = window.location;
+    if(location.pathname === '/login'){
+      window.location.href="/";
+    }
   }
 }
 

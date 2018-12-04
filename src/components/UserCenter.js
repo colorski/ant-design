@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Layout, Icon, Row, Col, Form, AutoComplete, Input } from 'antd';
+import _ from 'underscore';
 //import { Link } from 'react-router-dom';
 import Header from '../containers/HeaderCtn';
 import Footer from './Footer';
@@ -23,6 +24,7 @@ const _webSite = ['.com', '.org', '.net', '.vip'];
 export default class UserCenter extends Component {
   render () {
     const { Content } = Layout;
+    let basicInfo = _.extend({},{"userName": this.props.userName || window.sessionStorage.getItem('userName')})
 
     return <Layout className="layout ski-layout">
       <Header />
@@ -37,7 +39,7 @@ export default class UserCenter extends Component {
           <Col lg={8} md={24}>
             <h3>基本信息</h3>
             <div className="center-row">
-              <WrappedBasicInfoForm />
+              <WrappedBasicInfoForm basicInfo={basicInfo} />
             </div>
           </Col>
           <Col lg={8} md={24}>
@@ -80,6 +82,8 @@ class BasicInfoForm extends Component {
   render () {
     const { getFieldDecorator } = this.props.form;
     const { autoCompleteResult } = this.state;
+    const { basicInfo } = this.props;
+    console.log(this.props)
 
     const websiteOptions = autoCompleteResult.map(website => (
       <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
@@ -90,7 +94,7 @@ class BasicInfoForm extends Component {
         {...formItemLayout}
         label="用户名"
       >
-        22222
+        { basicInfo.userName }
       </FormItem>
       <FormItem
         {...formItemLayout}
