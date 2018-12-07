@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Layout, Icon, Row, Col, Form, AutoComplete, Input } from 'antd';
+import { Layout, Icon, Row, Col, Form, Input, Cascader, Select } from 'antd';// AutoComplete,
 import _ from 'underscore';
 //import { Link } from 'react-router-dom';
 import Header from '../containers/HeaderCtn';
 import Footer from './Footer';
 
 const FormItem = Form.Item;
-const AutoCompleteOption = AutoComplete.Option;
+const Option = Select.Option;
+//const AutoCompleteOption = AutoComplete.Option;
     
 const formItemLayout = {
   labelCol: {
@@ -19,12 +20,14 @@ const formItemLayout = {
   },
 };
 
-const _webSite = ['.com', '.org', '.net', '.vip'];
+//const _webSite = ['.com', '.org', '.net', '.vip'];
 
 export default class UserCenter extends Component {
   render () {
     const { Content } = Layout;
-    let basicInfo = _.extend({},{"userName": this.props.userName || window.sessionStorage.getItem('userName')})
+    const { userName, deptTree, position, base } = this.props;
+    let basicInfo = _.extend(_.extend({},{userName, deptTree, position}), base)
+    console.log(basicInfo)
 
     return <Layout className="layout ski-layout">
       <Header />
@@ -61,62 +64,113 @@ export default class UserCenter extends Component {
       <Footer />
     </Layout>
   }
+  
+  componentDidMount () {
+    this.props.onInit()
+  }
+
 }
 
+//基本信息
 class BasicInfoForm extends Component {
   state = {
-    autoCompleteResult: [],
+    //autoCompleteResult: [],
+    prefixPosition: null,
     edit: true
   };
-  handleWebsiteChange = (value) => {
-    let autoCompleteResult;
-    if (!value) {
-      autoCompleteResult = [];
-    } else {
-      autoCompleteResult = _webSite.map(domain => `${value}${domain}`);
-    }
-    this.setState({ autoCompleteResult });
-    console.log(this.state)
-  }
+  // handleWebsiteChange = (value) => {
+  //   let autoCompleteResult;
+  //   if (!value) {
+  //     autoCompleteResult = [];
+  //   } else {
+  //     autoCompleteResult = _webSite.map(domain => `${value}${domain}`);
+  //   }
+  //   this.setState({ autoCompleteResult });
+  //   console.log(this.state)
+  // }
 
   render () {
     const { getFieldDecorator } = this.props.form;
-    const { autoCompleteResult } = this.state;
-    const { basicInfo } = this.props;
-    console.log(this.props)
+    //const { autoCompleteResult } = this.state;
+    const { userName, jobNumber, department, deptTree, position } = this.props.basicInfo;
 
-    const websiteOptions = autoCompleteResult.map(website => (
-      <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-    ));
+    const prefixJobNumber = <span style={{ width: 60 }}>ski-</span>;
+
+    let _prefixPosition = department&&department[0];
 
     return <Form>
       <FormItem
         {...formItemLayout}
         label="用户名"
       >
-        { basicInfo.userName }
+        <span className="ant-form-text">{ userName }</span>
       </FormItem>
       <FormItem
         {...formItemLayout}
-        label="员工编号"
+        label="工号"
       >
         {this.state.edit?getFieldDecorator('jobNumber', {
-          rules: [{ required: true, message: '请填写员工编号！' }],
+          initialValue: jobNumber,
+          rules: [{ required: true, message: '请填写工号！' }],
         })(
-          <Input placeholder="员工编号" />
-        ):'123'}
+          <Input addonBefore={prefixJobNumber} placeholder="员工编号" />
+        ):'ski-'+jobNumber}
       </FormItem>
       <FormItem
         {...formItemLayout}
         label="部门"
       >
         {this.state.edit?getFieldDecorator('department', {
-          rules: [{ required: true, message: '请选择部门！' }],
+          initialValue: department,
+          rules: [{type: 'array', required: true, message: '请选择部门！' }],
         })(
-          <Input placeholder="员工编号" />
+          <Cascader options={deptTree} />
+        ):department}
+      </FormItem>
+      <FormItem
+        {...formItemLayout}
+        label="岗位"
+      >
+        {this.state.edit?<div style={{display: 'flex', margin: '3px 0'}}>
+          <Select style={{width:'100px'}} value={_prefixPosition}>
+            {
+              _.map(position, (d)=> <Option key={d.id} value={d.id}>{d.name}</Option>)
+            }
+          </Select>
+          <Select placeholder="请选择岗位！" style={{marginLeft: '-1px'}}>
+            <Option value="china">China</Option>
+            <Option value="use">U.S.A</Option>
+          </Select>
+        </div>:'123'}
+      </FormItem>
+      <FormItem
+        {...formItemLayout}
+        label="性别"
+      >
+        {this.state.edit?getFieldDecorator('sex', {
+          rules: [{ required: true, message: '请选择性别！' }],
+        })(
+          <Input placeholder="性别" />
+        ):'123'}
+      </FormItem>
+      <FormItem
+        {...formItemLayout}
+        label="生日"
+      >
+        {this.state.edit?getFieldDecorator('birthday', {
+          rules: [{ required: true, message: '请选择生日！' }],
+        })(
+          <Input placeholder="出生日期" />
         ):'123'}
       </FormItem>
     </Form>
   }
 }
 const WrappedBasicInfoForm = Form.create()(BasicInfoForm);
+
+
+
+
+
+
+

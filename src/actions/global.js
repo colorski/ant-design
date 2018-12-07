@@ -1,5 +1,7 @@
 import _ from 'underscore'
 import mac from '../utils/mac'
+import { departmentTree } from '../data/departmentTree';
+import position from '../data/position';
 
 export const SHOW_TOAST = 'global/SHOW_TOAST'
 export const WILL_DROP_TOAST = 'global/WILL_DROP_TOAST'
@@ -7,6 +9,9 @@ export const DROP_TOAST = 'global/DROP_TOAST'
 
 export const SHOW_CONFIRM = 'global/SHOW_CONFIRM'
 export const CLOSE_CONFIRM = 'global/CLOSE_CONFIRM'
+
+export const DEPARTMENT_TREE = 'global/DEPARTMENT_TREE'
+export const POSITION = 'global/POSITION'
 
 export const confirm = mac(SHOW_CONFIRM, 'props')
 export const closeConfirm = mac(CLOSE_CONFIRM)
@@ -73,4 +78,11 @@ export const registerMessagers = () => (dispatch) => {
       dispatch(confirm({type: 'prompt', text, onOk}))
     }
   }
+}
+
+export const getDeptTree = () => (dispatch) => {
+  dispatch({type:DEPARTMENT_TREE, data: departmentTree})
+}
+export const getPosition = () => (dispatch) => {
+  dispatch({type:POSITION, data: position})
 }

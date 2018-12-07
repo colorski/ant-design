@@ -1,6 +1,6 @@
 import { briefing } from '../data/briefing';
 import { indicators } from '../data/indicators';
-import { echartsData } from '../data/indexEchartsData';
+import { echartsData } from '../data/echarts';
 
 export const INIT = 'home/INIT'
 export const GET_STORAGE_BRIEFING_DATA = 'home/GET_STORAGE_BRIEFING_DATA'

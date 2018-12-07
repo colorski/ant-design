@@ -6,8 +6,11 @@ import {
   WILL_DROP_TOAST,
   DROP_TOAST,
   SHOW_CONFIRM,
-  CLOSE_CONFIRM
+  CLOSE_CONFIRM,
+  DEPARTMENT_TREE,
+  POSITION
 } from '../actions/global'
+
 export default combineReducers({
   toast: cr(null, {
     [SHOW_TOAST]({data}){
@@ -24,5 +27,13 @@ export default combineReducers({
   confirm: cr(null, {
     [SHOW_CONFIRM]({props}){return props},
     [CLOSE_CONFIRM](){return null},
+  }),
+
+  deptTree: cr(null, {
+    [DEPARTMENT_TREE]({data}){return data},
+  }),
+
+  position: cr(null, {
+    [POSITION]({data}){return data},
   })
 })
