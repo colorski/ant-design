@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { Layout, Icon, Row, Col, Form, Input, Cascader, Radio, Button } from 'antd';// AutoComplete,
+import { Layout, Icon, Row, Col, Form, Input, Cascader, DatePicker, Radio, Button, Select, AutoComplete } from 'antd';// AutoComplete,
 import _ from 'underscore';
 //import { Link } from 'react-router-dom';
+import moment from 'moment';
 import Header from '../containers/HeaderCtn';
 import Footer from './Footer';
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
-//const Option = Select.Option;
-//const AutoCompleteOption = AutoComplete.Option;
+const Option = Select.Option;
+const AutoCompleteOption = AutoComplete.Option;
     
 const formItemLayout = {
   labelCol: {
@@ -40,10 +41,11 @@ const sexArr = [{id:1, text:'男'},{id:2, text:'女'}]
 export default class UserCenter extends Component {
   render () {
     const { Content } = Layout;
-    const { userName, deptTree, positionTree, base, onEditBaseClick, editBase, onSubmitBasicInfo } = this.props;
+    const { userName, deptTree, positionTree, base, contact, onEditBaseClick, editBase, onSubmitBasicInfo, editContact, onSubmitContact, onEditContactClick } = this.props;
 
     let basicInfo = _.extend(_.extend({},{userName, deptTree, positionTree}), base)
 
+    console.log(basicInfo)
     return <Layout className="layout ski-layout">
       <Header />
 
@@ -65,9 +67,13 @@ export default class UserCenter extends Component {
             </div>
           </Col>
           <Col lg={8} md={24}>
-            <h3>联系方式</h3>
+            <h3>联系方式
+              {
+                !editContact && <Icon type="edit" onClick={onEditContactClick} title="编辑" />
+              }
+            </h3>
             <div className="center-row">
-              
+              <WrappedContactForm contact={contact} editContact={editContact} onSubmitContact={onSubmitContact} />
             </div>
           </Col>
           <Col lg={8} md={24}>
@@ -95,8 +101,12 @@ class BasicInfoForm extends Component {
 
   handleSubmitBasicInfo = (e) => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields((err, fieldsValue) => {
       if (!err) {
+        const values = {
+          ...fieldsValue,
+          birthday: fieldsValue['birthday'].format('YYYY-MM-DD')
+        }
         this.props.onSubmitBasicInfo(values);
       }
     });
@@ -104,7 +114,7 @@ class BasicInfoForm extends Component {
 
   render () {
     const { getFieldDecorator } = this.props.form;
-    const { userName, jobNumber, department, deptTree, position, positionTree, sex } = this.props.basicInfo;
+    const { userName, jobNumber, department, deptTree, position, positionTree, sex, birthday } = this.props.basicInfo;
     const { editBase } = this.props;
 
     const prefixJobNumber = <span style={{ width: 60 }}>ski-</span>;
@@ -199,10 +209,11 @@ class BasicInfoForm extends Component {
         label="生日"
       >
         {editBase?getFieldDecorator('birthday', {
-          rules: [{ required: true, message: '请选择生日！' }],
+          initialValue: moment(birthday, 'YYYY-MM-DD'),
+          rules: [{ type: 'object', required: true, message: '请选择生日！' }],
         })(
-          <Input placeholder="出生日期" />
-        ):'123'}
+          <DatePicker />
+        ):birthday}
       </FormItem>
 
       {editBase && <FormItem {...tailFormItemLayout}>
@@ -213,6 +224,142 @@ class BasicInfoForm extends Component {
   }
 }
 const WrappedBasicInfoForm = Form.create()(BasicInfoForm);
+
+//联系方式
+class ContactForm extends Component {
+  state = {
+    autoCompleteResult: [],
+  };
+
+  handleSubmitContact = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        this.props.onSubmitContact(values);
+      }
+    });
+  }
+  handleWebsiteChange = (value) => {
+    let autoCompleteResult;
+    if (!value) {
+      autoCompleteResult = [];
+    } else {
+      autoCompleteResult = ['.com', '.cn', '.net', '.vip', '.org'].map(domain => `${value}${domain}`);
+    }
+    this.setState({ autoCompleteResult });
+  }
+
+  render () {
+    const { getFieldDecorator } = this.props.form;
+    const { autoCompleteResult } = this.state;
+    const { editContact } = this.props;
+    const contact = this.props.contact!==null && this.props.contact;
+    const { phone, wechat, qq, email, website, address } = contact && contact;
+    
+    const prePhone = phone && phone.split('-');
+    const _phone = prePhone && prePhone[1];
+    const prefixPhone = getFieldDecorator('prePhone', {
+      initialValue: prePhone && prePhone[0],
+    })(
+      <Select style={{ width: 70 }}>
+        <Option value="86">+86</Option>
+        <Option value="87">+87</Option>
+      </Select>
+    );
+
+    const prefixWeb = <span style={{ width: 60 }}>www.</span>;
+
+    const websiteOptions = autoCompleteResult.map(website => (
+      <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
+    ));
+
+    return <Form onSubmit={this.handleSubmitContact}>
+
+      <FormItem
+        {...formItemLayout}
+        label="手机"
+      >
+        {editContact?getFieldDecorator('phone', {
+          initialValue: _phone,
+          rules: [{ required: true, message: '请填写手机号码！' }],
+        })(
+          <Input addonBefore={prefixPhone} placeholder="手机号码" />
+        ):phone}
+      </FormItem>
+
+      <FormItem
+        {...formItemLayout}
+        label="微信"
+      >
+        {editContact?getFieldDecorator('wechat', {
+          initialValue: wechat,
+          rules: [{required: true, message: '请填写微信号！' }],
+        })(
+          <Input placeholder="微信号" />
+        ):wechat}
+      </FormItem>
+
+      <FormItem
+        {...formItemLayout}
+        label="QQ"
+      >
+        {editContact?getFieldDecorator('qq', {
+          initialValue: qq,
+          rules: [{required: true, message: '请填写QQ号！' }],
+        })(
+          <Input placeholder="QQ号" />
+        ):qq}
+      </FormItem>
+
+      <FormItem
+        {...formItemLayout}
+        label="Email"
+      >
+        {editContact?getFieldDecorator('email', {
+          initialValue: email,
+          rules: [{required: true, message: '请填写邮箱！' }],
+        })(
+          <Input placeholder="邮箱地址" />
+        ):email}
+      </FormItem>
+
+      <FormItem
+        {...formItemLayout}
+        label="网址"
+      >
+        {editContact?getFieldDecorator('website', {
+          initialValue: website,
+          rules: [{ required: true, message: '请填写网址！' }],
+        })(
+          <AutoComplete
+            dataSource={websiteOptions}
+            onChange={this.handleWebsiteChange}
+          >
+            <Input addonBefore={prefixWeb} placeholder="网址" />
+          </AutoComplete>
+        ):'www.'+website+'/'}
+      </FormItem>
+
+      <FormItem
+        {...formItemLayout}
+        label="地址"
+      >
+        {editContact?getFieldDecorator('address', {
+          initialValue: address,
+          rules: [{ required: true, message: '请填写地址！' }],
+        })(
+          <Input placeholder="地址" />
+        ):address}
+      </FormItem>
+
+      {editContact && <FormItem {...tailFormItemLayout}>
+        <Button type="primary" htmlType="submit">保 存</Button>
+      </FormItem>}
+
+    </Form>
+  }
+}
+const WrappedContactForm = Form.create()(ContactForm);
 
 
 

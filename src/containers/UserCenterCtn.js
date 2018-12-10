@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import UserCenter from '../components/UserCenter'
-import { init, editBaseClick, submitBasicInfo } from '../actions/user'
+import { init, editBaseClick, submitBasicInfo, submitContact, editContactClick } from '../actions/user'
 
 export default connect(function(state){
   const session = window.sessionStorage
@@ -12,6 +12,7 @@ export default connect(function(state){
     deptTree: state.global.deptTree,
     positionTree: state.global.positionTree,
     editBase: state.user.editBase,
+    editContact: state.user.editContact,
   }
 }, function(dispatch){
   return {
@@ -21,8 +22,14 @@ export default connect(function(state){
     onEditBaseClick () {
       dispatch(editBaseClick())
     },
+    onEditContactClick () {
+      dispatch(editContactClick())
+    },
     onSubmitBasicInfo (values) {
       dispatch(submitBasicInfo(values))
+    },
+    onSubmitContact (values) {
+      dispatch(submitContact(values))
     }
   }
 })(UserCenter)

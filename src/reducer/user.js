@@ -5,7 +5,8 @@ import {
   USER_BASEINFO,
   USER_CONTACT,
   USER_PICTURE,
-  EDIT_BASE
+  EDIT_BASE,
+  EDIT_CONTACT
 } from '../actions/user'
 
 export default combineReducers({
@@ -22,6 +23,11 @@ export default combineReducers({
   contact: cr(null,{
     [USER_CONTACT]({contact}){
       return contact
+    }
+  }),
+  editContact: cr(false,{
+    [EDIT_CONTACT]({editContact}){
+      return editContact
     }
   }),
   picture: cr(null,{
