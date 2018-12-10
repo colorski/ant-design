@@ -5,12 +5,18 @@ import {
   USER_BASEINFO,
   USER_CONTACT,
   USER_PICTURE,
+  EDIT_BASE
 } from '../actions/user'
 
 export default combineReducers({
   base: cr(null,{
     [USER_BASEINFO]({base}){
       return base
+    }
+  }),
+  editBase: cr(false,{
+    [EDIT_BASE]({editBase}){
+      return editBase
     }
   }),
   contact: cr(null,{

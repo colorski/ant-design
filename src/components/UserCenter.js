@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Layout, Icon, Row, Col, Form, Input, Cascader, Select } from 'antd';// AutoComplete,
+import { Layout, Icon, Row, Col, Form, Input, Cascader, Radio, Button } from 'antd';// AutoComplete,
 import _ from 'underscore';
 //import { Link } from 'react-router-dom';
 import Header from '../containers/HeaderCtn';
 import Footer from './Footer';
 
 const FormItem = Form.Item;
-const Option = Select.Option;
+const RadioGroup = Radio.Group;
+//const Option = Select.Option;
 //const AutoCompleteOption = AutoComplete.Option;
     
 const formItemLayout = {
@@ -19,15 +20,29 @@ const formItemLayout = {
     sm: { span: 14 },
   },
 };
+const tailFormItemLayout = {
+  wrapperCol: {
+    xs: {
+      span: 24,
+      offset: 0,
+    },
+    sm: {
+      span: 14,
+      offset: 6,
+    },
+  },
+};
+
+const sexArr = [{id:1, text:'男'},{id:2, text:'女'}]
 
 //const _webSite = ['.com', '.org', '.net', '.vip'];
 
 export default class UserCenter extends Component {
   render () {
     const { Content } = Layout;
-    const { userName, deptTree, position, base } = this.props;
-    let basicInfo = _.extend(_.extend({},{userName, deptTree, position}), base)
-    console.log(basicInfo)
+    const { userName, deptTree, positionTree, base, onEditBaseClick, editBase, onSubmitBasicInfo } = this.props;
+
+    let basicInfo = _.extend(_.extend({},{userName, deptTree, positionTree}), base)
 
     return <Layout className="layout ski-layout">
       <Header />
@@ -40,9 +55,13 @@ export default class UserCenter extends Component {
         <div className="ski-user-con">
         <Row gutter={24}>
           <Col lg={8} md={24}>
-            <h3>基本信息</h3>
+            <h3>基本信息
+              {
+                !editBase && <Icon type="edit" onClick={onEditBaseClick} title="编辑" />
+              }
+            </h3>
             <div className="center-row">
-              <WrappedBasicInfoForm basicInfo={basicInfo} />
+              <WrappedBasicInfoForm basicInfo={basicInfo} editBase={editBase} onSubmitBasicInfo={onSubmitBasicInfo} />
             </div>
           </Col>
           <Col lg={8} md={24}>
@@ -73,96 +92,123 @@ export default class UserCenter extends Component {
 
 //基本信息
 class BasicInfoForm extends Component {
-  state = {
-    //autoCompleteResult: [],
-    prefixPosition: null,
-    edit: true
-  };
-  // handleWebsiteChange = (value) => {
-  //   let autoCompleteResult;
-  //   if (!value) {
-  //     autoCompleteResult = [];
-  //   } else {
-  //     autoCompleteResult = _webSite.map(domain => `${value}${domain}`);
-  //   }
-  //   this.setState({ autoCompleteResult });
-  //   console.log(this.state)
-  // }
+
+  handleSubmitBasicInfo = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        this.props.onSubmitBasicInfo(values);
+      }
+    });
+  }
 
   render () {
     const { getFieldDecorator } = this.props.form;
-    //const { autoCompleteResult } = this.state;
-    const { userName, jobNumber, department, deptTree, position } = this.props.basicInfo;
+    const { userName, jobNumber, department, deptTree, position, positionTree, sex } = this.props.basicInfo;
+    const { editBase } = this.props;
 
     const prefixJobNumber = <span style={{ width: 60 }}>ski-</span>;
+    const _positionTree = positionTree!==null&&positionTree;
 
-    let _prefixPosition = department&&department[0];
+    const renderDepartment = (department) => {
+      const dp1 = department && department[0], dp2 = department && department[1], dp3 = department && department[2]
 
-    return <Form>
+      const dpt1 = _.compact(_.map(deptTree, (d)=>{if(d.value===dp1) return d.label}))[0]
+      const posChildren = _.compact(_.map(deptTree, (d)=>{if(d.value===dp1) return d.children}))[0]
+      const dpt2 = _.compact(_.map(posChildren, (d)=>{if(d.value===dp2) return d.label}))[0]
+      const posChildren3 = _.compact(_.map(posChildren, (d)=>{if(d.value===dp2) return d.children}))[0]
+      const dpt3 = _.compact(_.map(posChildren3, (d)=>{if(d.value===dp3) return d.label}))[0]
+
+      return dpt1 +' / '+ dpt2 + renderPt(dpt3)
+    }
+
+    const renderPt = (dpt) => dpt!==undefined?' / '+dpt:''
+
+    const renderPosition = (position) => {
+      const p1 = position && position[0], p2 = position && position[1]
+      const pt1 = _.compact(_.map(_positionTree, (d)=>{if(d.value===p1) return d.label}))[0]
+      const posChildren = _.compact(_.map(_positionTree, (d)=>{if(d.value===p1) return d.children}))[0]
+      const pt2 = _.compact(_.map(posChildren, (d)=>{if(d.value===p2) return d.label}))[0]
+
+      return pt1+' / '+pt2
+    }
+    const renderSex = (sex) => _.map(sexArr, (d)=>{if(sex===d.id)return d.text})
+
+    return <Form onSubmit={this.handleSubmitBasicInfo}>
       <FormItem
         {...formItemLayout}
         label="用户名"
       >
         <span className="ant-form-text">{ userName }</span>
       </FormItem>
+
       <FormItem
         {...formItemLayout}
         label="工号"
       >
-        {this.state.edit?getFieldDecorator('jobNumber', {
+        {editBase?getFieldDecorator('jobNumber', {
           initialValue: jobNumber,
           rules: [{ required: true, message: '请填写工号！' }],
         })(
           <Input addonBefore={prefixJobNumber} placeholder="员工编号" />
         ):'ski-'+jobNumber}
       </FormItem>
+
       <FormItem
         {...formItemLayout}
         label="部门"
       >
-        {this.state.edit?getFieldDecorator('department', {
+        {editBase?getFieldDecorator('department', {
           initialValue: department,
           rules: [{type: 'array', required: true, message: '请选择部门！' }],
         })(
           <Cascader options={deptTree} />
-        ):department}
+        ):renderDepartment(department)}
       </FormItem>
+
       <FormItem
         {...formItemLayout}
         label="岗位"
       >
-        {this.state.edit?<div style={{display: 'flex', margin: '3px 0'}}>
-          <Select style={{width:'100px'}} value={_prefixPosition}>
-            {
-              _.map(position, (d)=> <Option key={d.id} value={d.id}>{d.name}</Option>)
-            }
-          </Select>
-          <Select placeholder="请选择岗位！" style={{marginLeft: '-1px'}}>
-            <Option value="china">China</Option>
-            <Option value="use">U.S.A</Option>
-          </Select>
-        </div>:'123'}
+        {editBase?getFieldDecorator('position', {
+          initialValue: position,
+          rules: [{required: true, message: '请选择岗位！' }],
+        })(
+          _positionTree!==null&&<Cascader options={_positionTree} />
+        ):renderPosition(position)}
       </FormItem>
+
       <FormItem
         {...formItemLayout}
         label="性别"
       >
-        {this.state.edit?getFieldDecorator('sex', {
+        {editBase?getFieldDecorator('sex', {
+          initialValue: sex,
           rules: [{ required: true, message: '请选择性别！' }],
         })(
-          <Input placeholder="性别" />
-        ):'123'}
+          <RadioGroup>
+            {
+              _.map(sexArr, (d)=><Radio value={d.id} key={d.id}>{d.text}</Radio>)
+            }
+          </RadioGroup>
+        ):renderSex(sex)}
       </FormItem>
+
       <FormItem
         {...formItemLayout}
         label="生日"
       >
-        {this.state.edit?getFieldDecorator('birthday', {
+        {editBase?getFieldDecorator('birthday', {
           rules: [{ required: true, message: '请选择生日！' }],
         })(
           <Input placeholder="出生日期" />
         ):'123'}
       </FormItem>
+
+      {editBase && <FormItem {...tailFormItemLayout}>
+        <Button type="primary" htmlType="submit">保 存</Button>
+      </FormItem>}
+      
     </Form>
   }
 }

@@ -33,7 +33,7 @@ export default combineReducers({
     [DEPARTMENT_TREE]({data}){return data},
   }),
 
-  position: cr(null, {
+  positionTree: cr(null, {
     [POSITION]({data}){return data},
   })
 })

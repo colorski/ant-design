@@ -109,6 +109,11 @@ body {
   border-bottom: 1px solid #ddd;
   font-size: 14px;
 }
+.ski-user-con h3 i {
+  float: right;
+  cursor: pointer;
+  margin-top: 5px;
+}
 .center-row {
   padding: 20px 10px;
 }

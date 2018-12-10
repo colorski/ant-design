@@ -7,6 +7,8 @@ export const USER_BASEINFO = 'user/USER_BASEINFO'
 export const USER_CONTACT = 'user/USER_CONTACT'
 export const USER_PICTURE = 'user/USER_PICTURE'
 
+export const EDIT_BASE = 'user/EDIT_BASE'
+
 const sessionStorage = window.sessionStorage;
 
 export const init = () => (dispatch) => {
@@ -16,37 +18,21 @@ export const init = () => (dispatch) => {
 //获取用户信息
 export const getUserData = () => (dispatch) =>{
   dispatch({type: GET_USER_DATA, data: user || [] })
-
-  dispatch({type: USER_BASEINFO, base: user.base})
+  dispatch({type: USER_BASEINFO, base: JSON.parse(sessionStorage.getItem('base'))?JSON.parse(sessionStorage.getItem('base')):user.base})
   dispatch({type: USER_CONTACT, contact: user.contact})
   dispatch({type: USER_PICTURE, picture: user.picture})
-  
-  sessionStorage.setItem('user',user)
 }
 
-//提交今日工作日志
-// export const submitLog = (type, content) => (dispatch) => {
-//   if(!type){
-//     message.warning('请选择日志类型！');
-//     return false;
-//   }else if(!content){
-//     message.warning('请填写日志内容！');
-//     return false;
-//   }else{
-//     const _todayLog = {
-//       id: '100',
-//       type: type,
-//       content: content,
-//       author: sessionStorage.getItem('userName'),
-//     }
-//     dispatch({type: TODAY_LOG, todayLog: _todayLog})
-  
-//     sessionStorage.setItem('todayLog',_todayLog)
+export const editBaseClick = () => (dispatch,getState) => {
+  dispatch({type: EDIT_BASE, editBase: !getState().user.editBase})
+}
 
-//     message.success('提交成功！');
+export const submitBasicInfo = (values) => (dispatch,getState) => {
+  dispatch({type: USER_BASEINFO, base: values})
+  dispatch({type: EDIT_BASE, editBase: !getState().user.editBase})
 
-//   }
-// }
+  sessionStorage.setItem('base',JSON.stringify(values))
+}
 
 
 

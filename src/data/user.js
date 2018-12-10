@@ -1,8 +1,10 @@
-// 导航菜单 - 与地址对应关系
+// 个人中心默认数据
 export const user = {
   'base': {
-    'jobNumber': 7788,
+    'jobNumber': '7788',
     'department': ['03', '03001', '03001002'],
+    'position': ['03', '03003'],
+    'sex': 1,
   },
   'contact': {
     'phone': '13811148807',
