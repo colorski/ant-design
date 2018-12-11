@@ -16,7 +16,7 @@ export default class Header extends Component {
 
     const memuClickEvent = ({key}) => {
       const navName = nav[key]
-      message.info(`切换到了${navName}`);
+      message.info(`${navName}`,1.5);
     }
 
     const userCenterMenu = (

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, Icon, Row, Col, Form, Input, Cascader, DatePicker, Radio, Button, Select, AutoComplete } from 'antd';// AutoComplete,
+import { Layout, Icon, Row, Col, Form, Input, Cascader, DatePicker, Radio, Button, Select, AutoComplete, Avatar, Upload, message } from 'antd';// AutoComplete,
 import _ from 'underscore';
 //import { Link } from 'react-router-dom';
 import moment from 'moment';
@@ -41,11 +41,11 @@ const sexArr = [{id:1, text:'男'},{id:2, text:'女'}]
 export default class UserCenter extends Component {
   render () {
     const { Content } = Layout;
-    const { userName, deptTree, positionTree, base, contact, onEditBaseClick, editBase, onSubmitBasicInfo, editContact, onSubmitContact, onEditContactClick } = this.props;
+    const { userName, deptTree, positionTree, base, contact, onEditBaseClick, editBase, onSubmitBasicInfo, editContact, onSubmitContact, onEditContactClick, picture } = this.props;
 
     let basicInfo = _.extend(_.extend({},{userName, deptTree, positionTree}), base)
 
-    console.log(basicInfo)
+    console.log(picture)
     return <Layout className="layout ski-layout">
       <Header />
 
@@ -79,6 +79,7 @@ export default class UserCenter extends Component {
           <Col lg={8} md={24}>
             <h3>头像信息</h3>
             <div className="center-row">
+              <WrappedUploadAvatar picture={picture} />
               
             </div>
           </Col>
@@ -361,7 +362,54 @@ class ContactForm extends Component {
 }
 const WrappedContactForm = Form.create()(ContactForm);
 
+class WrappedUploadAvatar extends Component {
 
+  handleUploadChange = (info) => {
+    if (info.file.status === 'done') {
+      // Get this url from response in real world.
+      console.log(info)
+      //getBase64(info.file.originFileObj, imageUrl => this.setState({ imageUrl }));
+    }
+  }
+  
+  render () {
+    const picture = this.props.picture!==null && this.props.picture;
+    const { src } = picture && picture;
+
+    const uploadButton = (
+      <div>
+        <Icon type="plus" />
+        <div className="ant-upload-text">上传头像</div>
+      </div>
+    );
+
+    function beforeUpload(file) {
+      const isJPG = file.type === 'image/jpeg' || file.type === 'image/png';
+      if (!isJPG) {
+        message.error('只支持JPG和PNG格式!');
+      }
+      const isLt1M = file.size / 1024 / 1024 < 1;
+      if (!isLt1M) {
+        message.error('图片必须小于1MB!');
+      }
+      return isJPG && isLt1M;
+    }
+    
+
+    return <div className="upload-avatar-wrap">
+      <Avatar src={ src && src } icon={ !src && "user"} />
+      <Upload
+          action="//jsonplaceholder.typicode.com/posts/"
+          listType="picture-card"
+          showUploadList={false}
+          beforeUpload={beforeUpload}
+          onChange={this.handleUploadChange}
+        >
+          {uploadButton}
+        </Upload>
+    </div>
+  }
+}
 
 
 

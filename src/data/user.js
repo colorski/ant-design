@@ -16,6 +16,6 @@ export const user = {
     'address': '山东省泰安市泰山区'
   },
   'picture': {
-    'src': '1234',
+    'src': 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
   },
 }

@@ -41,6 +41,8 @@ export const submitBasicInfo = (values) => (dispatch,getState) => {
   dispatch({type: EDIT_BASE, editBase: !getState().user.editBase})
 
   sessionStorage.setItem('base',JSON.stringify(values))
+
+  message.success('保存成功！')
 }
 
 export const submitContact = (values) => (dispatch,getState) => {
@@ -59,6 +61,8 @@ export const submitContact = (values) => (dispatch,getState) => {
   dispatch({type: EDIT_CONTACT, editContact: !getState().user.editContact})
 
   sessionStorage.setItem('contact',JSON.stringify(values))
+
+  message.success('保存成功！')
 }
 
 

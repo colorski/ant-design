@@ -121,4 +121,16 @@ body {
   margin-bottom: 20px;
 }
 
-
+.upload-avatar-wrap .ant-avatar {
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}
+.upload-avatar-wrap .ant-avatar > i {
+  font-size: 30px;
+  margin-top: 30px;
+}
+.upload-avatar-wrap .ant-upload.ant-upload-select-picture-card {
+  margin: 50px auto;
+}
