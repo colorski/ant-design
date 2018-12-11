@@ -1,7 +1,15 @@
 // 版本更新日志
-export const version = '1.0.3'
+export const version = '1.0.4'
 
 export const updateLogs = [
+  {
+    "version": "1.0.4",
+    "time": "2018-12-08",
+    "updates": [
+      "添加个人中心模块，包括 基本信息、联系方式、头像信息",
+      "添加修改密码模块，优化登陆模块"
+    ]
+  },
   {
     "version": "1.0.3",
     "time": "2018-11-25",

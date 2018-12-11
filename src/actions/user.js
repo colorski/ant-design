@@ -25,7 +25,7 @@ export const getUserData = () => (dispatch) =>{
   dispatch({type: GET_USER_DATA, data: user || [] })
   dispatch({type: USER_BASEINFO, base: JSON.parse(sessionStorage.getItem('base'))?JSON.parse(sessionStorage.getItem('base')):user.base})
   dispatch({type: USER_CONTACT, contact: JSON.parse(sessionStorage.getItem('contact'))?JSON.parse(sessionStorage.getItem('contact')):user.contact})
-  dispatch({type: USER_PICTURE, picture: user.picture})
+  dispatch({type: USER_PICTURE, pictureUrl: user.pictureUrl})
 }
 
 export const editBaseClick = () => (dispatch,getState) => {
@@ -65,6 +65,10 @@ export const submitContact = (values) => (dispatch,getState) => {
   message.success('保存成功！')
 }
 
+export const handleImageUrl = (url) => (dispatch) => {
+  dispatch({type: USER_PICTURE, pictureUrl: url})
 
+  sessionStorage.setItem('pictureUrl',url)
+}
 
 

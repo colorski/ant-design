@@ -15,7 +15,5 @@ export const user = {
     'email': '290518066@qq.com',
     'address': '山东省泰安市泰山区'
   },
-  'picture': {
-    'src': 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-  },
+  'pictureUrl': '',
 }

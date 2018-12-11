@@ -41,11 +41,10 @@ const sexArr = [{id:1, text:'男'},{id:2, text:'女'}]
 export default class UserCenter extends Component {
   render () {
     const { Content } = Layout;
-    const { userName, deptTree, positionTree, base, contact, onEditBaseClick, editBase, onSubmitBasicInfo, editContact, onSubmitContact, onEditContactClick, picture } = this.props;
+    const { userName, deptTree, positionTree, base, contact, onEditBaseClick, editBase, onSubmitBasicInfo, editContact, onSubmitContact, onEditContactClick, pictureUrl, onHandleImageUrl } = this.props;
 
     let basicInfo = _.extend(_.extend({},{userName, deptTree, positionTree}), base)
 
-    console.log(picture)
     return <Layout className="layout ski-layout">
       <Header />
 
@@ -59,7 +58,7 @@ export default class UserCenter extends Component {
           <Col lg={8} md={24}>
             <h3>基本信息
               {
-                !editBase && <Icon type="edit" onClick={onEditBaseClick} title="编辑" />
+                !editBase && <Icon type="edit" onClick={onEditBaseClick} title="编辑基本信息" />
               }
             </h3>
             <div className="center-row">
@@ -69,7 +68,7 @@ export default class UserCenter extends Component {
           <Col lg={8} md={24}>
             <h3>联系方式
               {
-                !editContact && <Icon type="edit" onClick={onEditContactClick} title="编辑" />
+                !editContact && <Icon type="edit" onClick={onEditContactClick} title="编辑联系方式" />
               }
             </h3>
             <div className="center-row">
@@ -79,8 +78,7 @@ export default class UserCenter extends Component {
           <Col lg={8} md={24}>
             <h3>头像信息</h3>
             <div className="center-row">
-              <WrappedUploadAvatar picture={picture} />
-              
+              <WrappedUploadAvatar pictureUrl={pictureUrl} onHandleImageUrl={onHandleImageUrl} />
             </div>
           </Col>
         </Row>
@@ -365,16 +363,16 @@ const WrappedContactForm = Form.create()(ContactForm);
 class WrappedUploadAvatar extends Component {
 
   handleUploadChange = (info) => {
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      console.log(info)
-      //getBase64(info.file.originFileObj, imageUrl => this.setState({ imageUrl }));
-    }
+    this.props.onHandleImageUrl(info.file.url || info.file.thumbUrl);
+    //实际应该在done的时候取url
+    // if (info.file.status === 'done') {
+    //   //getBase64(info.file.originFileObj, imageUrl => this.setState({ imageUrl }));
+    // }
   }
   
   render () {
-    const picture = this.props.picture!==null && this.props.picture;
-    const { src } = picture && picture;
+    let pictureUrl = this.props.pictureUrl;
+    if(pictureUrl === null ){ pictureUrl = window.sessionStorage.getItem('pictureUrl')}
 
     const uploadButton = (
       <div>
@@ -384,24 +382,19 @@ class WrappedUploadAvatar extends Component {
     );
 
     function beforeUpload(file) {
-      const isJPG = file.type === 'image/jpeg' || file.type === 'image/png';
-      if (!isJPG) {
-        message.error('只支持JPG和PNG格式!');
-      }
       const isLt1M = file.size / 1024 / 1024 < 1;
       if (!isLt1M) {
         message.error('图片必须小于1MB!');
       }
-      return isJPG && isLt1M;
+      return isLt1M;
     }
     
-
     return <div className="upload-avatar-wrap">
-      <Avatar src={ src && src } icon={ !src && "user"} />
+      <Avatar src={ pictureUrl } icon={ !pictureUrl && "user"} />
       <Upload
           action="//jsonplaceholder.typicode.com/posts/"
           listType="picture-card"
-          showUploadList={false}
+          //showUploadList={false} //此处取巧，不应该用showUploadList
           beforeUpload={beforeUpload}
           onChange={this.handleUploadChange}
         >

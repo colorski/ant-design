@@ -30,9 +30,9 @@ export default combineReducers({
       return editContact
     }
   }),
-  picture: cr(null,{
-    [USER_PICTURE]({picture}){
-      return picture
+  pictureUrl: cr(null,{
+    [USER_PICTURE]({pictureUrl}){
+      return pictureUrl || null
     }
   }),
 })
