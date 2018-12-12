@@ -66,9 +66,27 @@ body {
 .ski-layout .ski-card .flex {
   display: flex;
 }
-.ski-layout .ski-card .flex p {
+.ski-card .flex p {
   margin-bottom: 0;
   flex: 1;
+}
+
+.ski-layout .col-tools span.text {
+  line-height: 39px;
+  margin-right: 20px;
+}
+.ski-layout .col-tools .ant-form label {
+  font-size: 12px;
+}
+.ski-layout .collection-table .col-todo span {
+  font-size: 14px;
+  color: #108ee9;
+  cursor: pointer;
+}
+.ski-layout .collection-table .col-todo b {
+  font-weight: normal;
+  color: #ccc;
+  margin: 0 10px;
 }
 
 .ski-collapse p {

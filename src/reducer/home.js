@@ -4,7 +4,8 @@ import cr from '../utils/cr'
 import {
   GET_STORAGE_BRIEFING_DATA,
   GET_STORAGE_INDICATORS_DATA,
-  GET_INDEX_ECHARTS_DATA
+  GET_INDEX_ECHARTS_DATA,
+  GET_INDEX_COLLECTION_DATA
 } from '../actions/home'
 
 export default combineReducers({
@@ -20,6 +21,11 @@ export default combineReducers({
   }),
   echarts: cr(null,{
     [GET_INDEX_ECHARTS_DATA]({data}){
+      return data
+    }
+  }),
+  collection: cr(null,{
+    [GET_INDEX_COLLECTION_DATA]({data}){
       return data
     }
   }),

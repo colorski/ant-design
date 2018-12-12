@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Card, Col, Row, Icon, Modal, Table, message, Collapse, Alert } from 'antd';
+import { Layout, Card, Col, Row, Icon, Modal, Table, message, Collapse, Alert, Form, Switch } from 'antd';
 import _ from 'underscore';
 import EchartsHomeBasicLine from './echarts/EchartsHomeBasicLine';
 import EchartsHomeBasicBar from './echarts/EchartsHomeBasicBar';
@@ -9,6 +9,9 @@ import Header from '../containers/HeaderCtn';
 import Footer from './Footer';
 
 const Panel = Collapse.Panel;
+const FormItem = Form.Item;
+
+//const showHeader = true;
 
 export default class Home extends Component {
   constructor (props){
@@ -16,10 +19,13 @@ export default class Home extends Component {
     this.state = {
       currentBriefId: null,
       visible: false,
-      filterDropdownVisible: false,
-      data: [],
-      searchText: '',
-      filtered: false,
+      bordered: true,
+      showHeader: true, 
+      pagination: false,
+      // filterDropdownVisible: false,
+      //data: [],
+      // searchText: '',
+      // filtered: false,
     }
   }
 
@@ -28,6 +34,19 @@ export default class Home extends Component {
     const lastSevenDays = momentDays(6) + '~' + momentDays(0);
     const sevenDays = this.props.echarts?this.props.echarts.sevenDays: null
     const oneYear = this.props.echarts?this.props.echarts.oneYear: null
+
+    const state = this.state;
+    const collectionTitle = <span>汇总 <span style={{fontSize: '12px', color: '#999'}}>（当前所在区域 - 华东区）</span></span>
+    const collectionTools = <div className="col-tools flex">
+      <Form layout="inline">
+        <FormItem label="边框">
+          <Switch size="small" checked={state.bordered} onChange={this.handleToggle('bordered')} />
+        </FormItem>
+        <FormItem label="表头">
+          <Switch size="small" checked={state.showHeader} onChange={this.handleHeaderChange} />
+        </FormItem>
+      </Form>
+    </div>
 
     return <Layout className="layout ski-layout">
       <Header />
@@ -43,6 +62,12 @@ export default class Home extends Component {
         <Card title="指标" bordered={false} className="ski-card" extra={<span>（销售指标 / 单位：万元）</span>}>
           <Row gutter={24}>
             {this.renderIndicators()}
+          </Row>
+        </Card>
+
+        <Card title={collectionTitle} bordered={false} className="ski-card" extra={collectionTools}>
+          <Row gutter={24}>
+            {this.renderCollection()}
           </Row>
         </Card>
 
@@ -248,13 +273,58 @@ export default class Home extends Component {
     )
   }
 
+  //汇总
+  renderCollection () {
+    const { collection } = this.props;
+    const columns = [{
+      title: '省份',
+      dataIndex: 'province',
+    }, {
+      title: '总客户数',
+      dataIndex: 'total',
+      sorter: (a, b) => a.total - b.total,
+    }, {
+      title: '可保留',
+      dataIndex: 'cankeeps',
+      sorter: (a, b) => a.cankeeps - b.cankeeps,
+    }, {
+      title: '未保留',
+      dataIndex: 'notkeeps',
+      sorter: (a, b) => a.cankeeps - b.cankeeps,
+    }, {
+      title: '合作中',
+      dataIndex: 'using',
+      sorter: (a, b) => a.using - b.using,
+    }, {
+      title: '所属城市数据',
+      dataIndex: '所属城市数据',
+      width: '250px',
+      render: (text, record) => (
+        <div className="col-todo">
+          <span>各城市合作量</span><b>|</b><span>各城市成交价</span>
+        </div>
+      ),
+    }];
+
+    return <Table className="collection-table" {...this.state} columns={columns} dataSource={collection} rowKey="id" />
+  }
+
   handleCancel = () => {
     this.setState({ visible: false})
   }
 
+  handleToggle = (prop) => {
+    return (enable) => {
+      this.setState({ [prop]: enable });
+    };
+  }
+
+  handleHeaderChange = (enable) => {
+    this.setState({ showHeader: enable ? true : false });
+  }
+
   componentDidMount(){
     this.props.onInit()
-    //setTimeout(()=>{this.props.onInit()},500)
   }
 
 }
