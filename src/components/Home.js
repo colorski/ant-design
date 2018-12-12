@@ -19,8 +19,8 @@ export default class Home extends Component {
     this.state = {
       currentBriefId: null,
       visible: false,
-      bordered: true,
-      showHeader: true, 
+      bordered: false,
+      showHeader: true,
       pagination: false,
       // filterDropdownVisible: false,
       //data: [],
