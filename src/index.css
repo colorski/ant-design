@@ -35,6 +35,9 @@ body {
   margin-top: 80px;
   padding: 0 1rem;
 }
+.ski-center {
+  text-align: center;
+}
 
 
 .ski-layout .ant-layout-footer {

@@ -1,7 +1,14 @@
 // 版本更新日志
-export const version = '1.0.4'
+export const version = '1.0.5'
 
 export const updateLogs = [
+  {
+    "version": "1.0.5",
+    "time": "2018-12-15",
+    "updates": [
+      "首页添加汇总模块及展示各城市数据的ECharts图表组件"
+    ]
+  },
   {
     "version": "1.0.4",
     "time": "2018-12-08",

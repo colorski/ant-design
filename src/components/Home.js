@@ -4,6 +4,8 @@ import { Layout, Card, Col, Row, Icon, Modal, Table, message, Collapse, Alert, F
 import _ from 'underscore';
 import EchartsHomeBasicLine from './echarts/EchartsHomeBasicLine';
 import EchartsHomeBasicBar from './echarts/EchartsHomeBasicBar';
+import EchartsHomeCityAccount from './echarts/EchartsHomeCityAccount';
+import EchartsHomeCityPrice from './echarts/EchartsHomeCityPrice';
 import { momentDays, momnetDay } from '../utils/momentTimes';
 import Header from '../containers/HeaderCtn';
 import Footer from './Footer';
@@ -22,10 +24,10 @@ export default class Home extends Component {
       bordered: false,
       showHeader: true,
       pagination: false,
-      // filterDropdownVisible: false,
-      //data: [],
-      // searchText: '',
-      // filtered: false,
+
+      cityModalVisible: false,
+      cityDataType: null,
+      provinceId: null,
     }
   }
 
@@ -87,6 +89,7 @@ export default class Home extends Component {
       <Footer />
 
       {this.renderBriefingModal()}
+      {this.renderCityModal()}
       
     </Layout>
   }
@@ -301,12 +304,49 @@ export default class Home extends Component {
       width: '250px',
       render: (text, record) => (
         <div className="col-todo">
-          <span>各城市合作量</span><b>|</b><span>各城市成交价</span>
+          <span onClick={()=>this.handleShowCityModal('account', record.id)}>各城市合作量</span>
+          <b>|</b>
+          <span onClick={()=>this.handleShowCityModal('price', record.id)}>各城市成交价</span>
         </div>
       ),
     }];
 
     return <Table className="collection-table" {...this.state} columns={columns} dataSource={collection} rowKey="id" />
+  }
+
+  handleShowCityModal = (type, id) => {
+    const { onGetCityData } = this.props;
+    onGetCityData(type, id);
+
+    this.setState({ 
+      cityModalVisible: true,
+      cityDataType: type,
+      provinceId: id,
+    })
+  }
+
+  renderCityModal () {
+    const { cityDataType , provinceId } = this.state;
+    const { collection, cityData } = this.props;
+    const province = _.compact(_.map(collection, (d)=>{if(d.id === provinceId) return d.id==='07'?d.province+'市各区县':d.province+'省各县市'}))
+
+    let tit = cityDataType==='account'?'合作数量':'成交价格'
+    return <Modal
+        title={`${province[0]}${tit}`}
+        visible={this.state.cityModalVisible}
+        onCancel={this.handleCancelCityModal}
+        loading={true}
+        footer={null}
+        width={1000}
+      >
+        {
+          cityDataType==='account'?<EchartsHomeCityAccount provinceId={provinceId} cityData={cityData} />:<EchartsHomeCityPrice provinceId={provinceId} cityData={cityData} />
+        }
+      </Modal>
+  }
+
+  handleCancelCityModal = () => {
+    this.setState({ cityModalVisible: false})
   }
 
   handleCancel = () => {
