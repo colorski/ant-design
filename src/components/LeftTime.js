@@ -14,19 +14,20 @@ export default class LeftTime extends Component {
     let _endTo = "June 7, 2099 "+this.props.endTo;
     let endTime=new Date(_endTo);
     let startTime = new Date();
-    let leftSecond=parseInt((endTime.getTime()-startTime.getTime())/1000);
+    let leftSecond=parseInt((endTime.getTime()-startTime.getTime())/1000, 10);
 
     if(leftSecond<0){leftSecond=0;}
 
-    let h=this.toDbl(parseInt((leftSecond/3600)%24));
-    let m=this.toDbl(parseInt((leftSecond/60)%60));
-    let s=this.toDbl(parseInt(leftSecond%60));
+    let h=this.toDbl(parseInt((leftSecond/3600)%24, 10));
+    let m=this.toDbl(parseInt((leftSecond/60)%60, 10));
+    let s=this.toDbl(parseInt(leftSecond%60, 10));
     this.setState({
       leftTime: h+'小时'+m+'分'+s+'秒'
     })
   }
 
   componentDidMount () {
+    this.count();
     this.interval = setInterval(() => this.count(), 1000);
   }
 
