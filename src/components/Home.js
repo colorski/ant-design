@@ -13,8 +13,6 @@ import Footer from './Footer';
 const Panel = Collapse.Panel;
 const FormItem = Form.Item;
 
-//const showHeader = true;
-
 export default class Home extends Component {
   constructor (props){
     super(props)
@@ -22,7 +20,7 @@ export default class Home extends Component {
       currentBriefId: null,
       visible: false,
       bordered: false,
-      showHeader: true,
+      showTableHeader: true,
       pagination: false,
 
       cityModalVisible: false,
@@ -45,7 +43,7 @@ export default class Home extends Component {
           <Switch size="small" checked={state.bordered} onChange={this.handleToggle('bordered')} />
         </FormItem>
         <FormItem label="表头">
-          <Switch size="small" checked={state.showHeader} onChange={this.handleHeaderChange} />
+          <Switch size="small" checked={state.showTableHeader} onChange={this.handleHeaderChange} />
         </FormItem>
       </Form>
     </div>
@@ -360,7 +358,7 @@ export default class Home extends Component {
   }
 
   handleHeaderChange = (enable) => {
-    this.setState({ showHeader: enable ? true : false });
+    this.setState({ showTableHeader: enable ? true : false });
   }
 
   componentDidMount(){

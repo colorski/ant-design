@@ -18,11 +18,6 @@ export const init = () => (dispatch) => {
   dispatch(getIndexEchartsData())
   dispatch(getIndexCollectionData())
 }
-
-export const getCityData = (type, id) => (dispatch) => {
-  dispatch({type: GET_CITY_DATA, data: cityData || [] })
-}
-
 //简报
 export const getStorageBriefingData = () => (dispatch) =>{
   dispatch({type: GET_STORAGE_BRIEFING_DATA, data: briefing || [] })
@@ -39,3 +34,9 @@ export const getIndexEchartsData = () => (dispatch) =>{
 export const getIndexCollectionData = () => (dispatch) =>{
   dispatch({type: GET_INDEX_COLLECTION_DATA, data: collection || [] })
 }
+
+//汇总下各城市数据
+export const getCityData = (type, id) => (dispatch) => {
+  dispatch({type: GET_CITY_DATA, data: cityData || [] })
+}
+
