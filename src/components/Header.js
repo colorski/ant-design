@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import { Layout, Menu, Dropdown, Icon, message, Avatar } from 'antd';
 import ReactIcon from './ReactIcon';
 import { nav } from '../data/nav';
@@ -26,16 +26,16 @@ export default class Header extends Component {
         onClick={memuClickEvent}
         defaultSelectedKeys={arrPathname}
       >
-        <Menu.Item key="userCenter"><Link to="/userCenter">个人中心</Link></Menu.Item>
-        <Menu.Item key="writeLog"><Link to="/writeLog">工作日志</Link></Menu.Item>
-        <Menu.Item key="changePassword"><Link to="/changePassword">修改密码</Link></Menu.Item>
-        <Menu.Item key="" disabled>其它内容</Menu.Item>
+        <Menu.Item key="userCenter"><NavLink to="/userCenter" activeclassname="active">个人中心</NavLink></Menu.Item>
+        <Menu.Item key="writeLog"><NavLink to="/writeLog" activeclassname="active">工作日志</NavLink></Menu.Item>
+        <Menu.Item key="changePassword"><NavLink to="/changePassword" activeclassname="active">修改密码</NavLink></Menu.Item>
+        <Menu.Item key="" disabled activeclassname="active">其它内容</Menu.Item>
       </Menu>
     )
     
     return <Header>
       <div className="logo">
-        <Link to="/"><ReactIcon /></Link>
+        <NavLink to="/" activeclassname="active"><ReactIcon /></NavLink>
       </div>
 
       <Menu
@@ -44,11 +44,11 @@ export default class Header extends Component {
         defaultSelectedKeys={arrPathname}
         style={{ lineHeight: '64px' }}
       >
-        <Menu.Item key="home"><Link to="/home">系统首页</Link></Menu.Item>
-        <Menu.Item key="customer"><Link to="/customer">客户管理</Link></Menu.Item>
+        <Menu.Item key="home"><NavLink to="/home" activeclassname="active">系统首页</NavLink></Menu.Item>
+        <Menu.Item key="customer"><NavLink to="/customer" activeclassname="active">客户管理</NavLink></Menu.Item>
       </Menu>
 
-      <Link to="/userCenter"><Avatar className="user-head" src={ pictureUrl && pictureUrl } icon={ !pictureUrl && "user"} /></Link>
+      <NavLink to="/userCenter" activeclassname="active"><Avatar className="user-head" src={ pictureUrl && pictureUrl } icon={ !pictureUrl && "user"} /></NavLink>
       
       <Dropdown overlay={userCenterMenu} placement="bottomRight">
         <p>欢迎：{ userName } <Icon type="down" /></p>

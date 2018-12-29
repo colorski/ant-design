@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Home from '../containers/HomeCtn';
 import Login from '../containers/LoginCtn';
 import UserCenter from '../containers/UserCenterCtn';
@@ -8,7 +8,7 @@ import ChangePassword from '../containers/ChangePasswordCtn';
 import Global from '../components/Global';
 import Customer from '../components/Customer';
 import VersionLog from '../components/VersionLog';
-import Test from './Test';
+import NoMatch from './NoMatch';
 
 export default class extends Component{
 
@@ -26,7 +26,7 @@ export default class extends Component{
 
   renderRouter(){
     return <BrowserRouter>
-      <React.Fragment>
+      <Switch>
         <Route path="/" exact component={ Home }></Route>
         <Route path="/home" component={ Home }></Route>
         <Route path="/login" component={ Login }></Route>
@@ -35,9 +35,11 @@ export default class extends Component{
         <Route path="/writeLog" component={ WriteLog } />
         <Route path="/changePassword" component={ ChangePassword } />
         <Route path="/versionLog" component={ VersionLog } />
-        <Route path="/test" component={Test} />
+        <Route path="/nomatch" component={ NoMatch } />
+        
+        <Redirect to="/nomatch" />
         {/* <Route path="/login" component={Login} /> */}
-      </React.Fragment>
+      </Switch>
     </BrowserRouter>
   }
 
