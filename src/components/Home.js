@@ -20,7 +20,7 @@ export default class Home extends Component {
       currentBriefId: null,
       visible: false,
       bordered: false,
-      showTableHeader: true,
+      showHeader: true,
       pagination: false,
 
       cityModalVisible: false,
@@ -43,7 +43,7 @@ export default class Home extends Component {
           <Switch size="small" checked={state.bordered} onChange={this.handleToggle('bordered')} />
         </FormItem>
         <FormItem label="表头">
-          <Switch size="small" checked={state.showTableHeader} onChange={this.handleHeaderChange} />
+          <Switch size="small" checked={state.showHeader} onChange={this.handleToggle('showHeader')} />
         </FormItem>
       </Form>
     </div>
@@ -357,9 +357,9 @@ export default class Home extends Component {
     };
   }
 
-  handleHeaderChange = (enable) => {
-    this.setState({ showTableHeader: enable ? true : false });
-  }
+  // handleHeaderChange = (enable) => {
+  //   this.setState({ showHeader: enable===true?false:true});
+  // }
 
   componentDidMount(){
     this.props.onInit()
