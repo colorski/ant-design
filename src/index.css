@@ -164,3 +164,15 @@ body {
 .upload-avatar-wrap .ant-upload-list-picture-card {
   display: none;
 }
+
+.customer {
+  background-color: #fff;
+}
+.customer .filter {
+  padding: 25px 15px 15px;
+  margin-bottom: 15px;
+  border-bottom: solid 1px #ddd;
+}
+.customer .filter-list {
+  margin-bottom: 10px;
+}

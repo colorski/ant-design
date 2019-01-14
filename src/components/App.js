@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Home from '../containers/HomeCtn';
+import Customer from '../containers/CustomerCtn';
 import Login from '../containers/LoginCtn';
 import UserCenter from '../containers/UserCenterCtn';
 import WriteLog from '../containers/WriteLogCtn';
 import ChangePassword from '../containers/ChangePasswordCtn';
 import Global from '../components/Global';
-import Customer from '../components/Customer';
 import VersionLog from '../components/VersionLog';
 import NoMatch from './NoMatch';
 
