@@ -119,19 +119,11 @@ export const filterData = {
     },
     {
       id: '15',
-      name: '江西'
-    },
-    {
-      id: '16',
-      name: '四川'
-    },
-    {
-      id: '17',
       name: '香港',
       disabled: true
     },
     {
-      id: '18',
+      id: '16',
       name: '澳门',
       disabled: true
     },

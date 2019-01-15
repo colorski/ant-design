@@ -4,6 +4,11 @@ body {
   font-family: sans-serif;
   min-width: 768px;
 }
+.ski-layout{
+  display: flex; 
+  flex-flow: column; 
+  min-height: 100vh!important;
+}
 .ski-layout .ant-layout-header {
   position: fixed;
   top: 0;
@@ -32,6 +37,7 @@ body {
 }
 
 .ski-layout .ant-layout-content {
+  flex: 1;
   margin-top: 80px;
   padding: 0 1rem;
 }
@@ -44,6 +50,9 @@ body {
   min-width: 768px;
   display: flex;
   padding: 16px 1rem;
+  margin-top: 10px;
+  background-color: #fff;
+  border-top: 1px solid #e8e8e8;
 }
 .ski-layout .ant-layout-footer p {
   flex: 1;
@@ -55,6 +64,9 @@ body {
 
 .ski-layout .ski-card {
   margin-bottom: 10px;
+}
+.ski-layout .ski-card:last-child {
+  margin-bottom: 0;
 }
 .ski-layout .brief b {
   font-family: serif;
@@ -169,6 +181,7 @@ body {
   background-color: #fff;
 }
 .customer .filter {
+  position: relative;
   padding: 25px 15px 15px;
   margin-bottom: 15px;
   border-bottom: solid 1px #ddd;
@@ -176,3 +189,22 @@ body {
 .customer .filter-list {
   margin-bottom: 10px;
 }
+.filter-params {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 11px;
+  background-color: #fbfbfb;
+  border: solid 1px #ddd;
+}
+.filter-params p {
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+.filter-params p strong {
+  color: #f00;
+}
+
+
+
+

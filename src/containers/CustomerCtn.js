@@ -1,15 +1,17 @@
 import { connect } from 'react-redux'
 import Customer from '../components/Customer';
 
+import {setFilter} from '../actions/customer';
+
 export default connect(function(state){
   return {
     filter: state.customer.filter,
   }
 }, function(dispatch){
   return {
-    // onGetStorageData () {
-    //   dispatch(getStorageData())
-    // },
+    onSetFilter (t,id) {
+      dispatch(setFilter(t,id))
+    },
     // onLogin (userName, passWord) {
     //   dispatch(login(userName, passWord))
     // }

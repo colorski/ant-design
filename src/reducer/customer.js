@@ -8,9 +8,9 @@ import {
 
 export default combineReducers({
   filter: combineReducers({
-    type: cr('0',{
-      [FILTER_TYPE]({type}){
-        return type
+    ftType: cr('0',{
+      [FILTER_TYPE]({ftType}){
+        return ftType
       }
     }),
     status: cr('0',{
