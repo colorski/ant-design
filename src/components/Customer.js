@@ -2,25 +2,16 @@ import React, { Component } from 'react';
 import { Layout } from 'antd';
 //import { Link } from 'react-router-dom';
 import Header from '../containers/HeaderCtn';
+import CustomerList from './CustomerList';
 import Footer from './Footer';
 import FilterList from './FilterList';
-import { filterData } from '../data/filter';
-
 
 export default class Customer extends Component {
-  // constructor (props) {
-  //   super(props)
-  //   this.state = {
-  //     type: '0',
-  //     status: '0',
-  //     province: '0',
-  //   }
-  // }
   render () {
     const { Content } = Layout;
+    const { filterData, filter, onSetFilter, data } = this.props;
     const { type, status, province } = filterData;
-    const { filter, onSetFilter } = this.props;
-    console.log(this.props.filter)
+
     return <Layout className="layout ski-layout">
       <Header />
 
@@ -40,12 +31,16 @@ export default class Customer extends Component {
 
           </div>
           <div className="filter-table">
-            123
+            <CustomerList data={data} filterData={filterData} />
           </div>
         </div>
       </Content>
 
       <Footer />
     </Layout>
+  }
+
+  componentDidMount () {
+    this.props.onInit();
   }
 }

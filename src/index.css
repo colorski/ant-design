@@ -183,7 +183,6 @@ body {
 .customer .filter {
   position: relative;
   padding: 25px 15px 15px;
-  margin-bottom: 15px;
   border-bottom: solid 1px #ddd;
 }
 .customer .filter-list {

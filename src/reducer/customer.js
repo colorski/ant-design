@@ -3,7 +3,9 @@ import cr from '../utils/cr'
 import {
   FILTER_TYPE,
   FILTER_STATUS,
-  FILTER_PROVINCE
+  FILTER_PROVINCE,
+  GET_STORAGE_CUSTOMER_LIST,
+  CUSTOMER_FILTER_DATA
 } from '../actions/customer'
 
 export default combineReducers({
@@ -23,6 +25,16 @@ export default combineReducers({
         return province
       }
     }),
+  }),
+  filterData: cr({},{
+    [CUSTOMER_FILTER_DATA]({filterData}){
+      return filterData
+    }
+  }),
+  data: cr([],{
+    [GET_STORAGE_CUSTOMER_LIST]({data}){
+      return data
+    }
   }),
   
 })
