@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Table } from 'antd';
-//import _ from 'underscore';
+import _ from 'underscore';
 //import { Link } from 'react-router-dom';
 
 export default class CustomerList extends Component {
@@ -23,12 +23,18 @@ export default class CustomerList extends Component {
     const {data, filterData} = this.props;
     const {type, status, province} = filterData;
 
+    let statusFilterInTable = _.map(status, (d)=> {return {text:d.name, value:d.id}})
+    statusFilterInTable.splice(0, 1)
+
+    let typeFilterInTable = _.map(type, (d)=> {return {text:d.name, value:d.id}})
+    typeFilterInTable.splice(0, 1)
+
     let { sortedInfo, filteredInfo } = this.state;
     sortedInfo = sortedInfo || {};
     filteredInfo = filteredInfo || {};
 
     const columns = [{
-      title: '客戶ID',
+      title: '客户ID',
       dataIndex: 'id',
       sorter: (a, b) => a.id - b.id,
       sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
@@ -44,6 +50,10 @@ export default class CustomerList extends Component {
     }, {
       title: '客户类型',
       dataIndex: 'type',
+      key: 'type',
+      filters: typeFilterInTable,
+      filteredValue: filteredInfo.type || null,
+      onFilter: (value, record) => record.type.includes(value),
       render: (i) => {
         return type[i].name
       }
@@ -51,10 +61,7 @@ export default class CustomerList extends Component {
       title: '客户状态',
       dataIndex: 'status',
       key: 'status',
-      filters: [
-        { text: '保留', value: '4' },
-        { text: '使用', value: '1' },
-      ],
+      filters: statusFilterInTable,
       filteredValue: filteredInfo.status || null,
       onFilter: (value, record) => record.status.includes(value),
       render: (i) => {
