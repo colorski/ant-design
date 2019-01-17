@@ -71,7 +71,7 @@ export const customerData = [
     'callToday': '5',
     'callWeek': '12',
     'keepPrice': '2.55',
-    'keeper': '陈大妈',
+    'keeper': '',
     'linkMen': [
       {
         'id': '0001',
@@ -102,7 +102,7 @@ export const customerData = [
     'callToday': '0',
     'callWeek': '7',
     'keepPrice': '1.78',
-    'keeper': '李大爷',
+    'keeper': '',
     'linkMen': [
       {
         'id': '0001',
@@ -164,7 +164,7 @@ export const customerData = [
     'callToday': '5',
     'callWeek': '18',
     'keepPrice': '3.33',
-    'keeper': '李勤政',
+    'keeper': '',
     'linkMen': [
       {
         'id': '0001',
@@ -412,7 +412,7 @@ export const customerData = [
     'callToday': '3',
     'callWeek': '10',
     'keepPrice': '3.67',
-    'keeper': '胡杨',
+    'keeper': '',
     'linkMen': [
       {
         'id': '0001',

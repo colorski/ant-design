@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Layout } from 'antd';
 //import { Link } from 'react-router-dom';
 import Header from '../containers/HeaderCtn';
-import CustomerList from './CustomerList';
+import CustomerList from '../containers/CustomerListCtn';
 import Footer from './Footer';
 import FilterList from './FilterList';
 

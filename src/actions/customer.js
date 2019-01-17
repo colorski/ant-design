@@ -1,5 +1,7 @@
 // import { message } from 'antd';
 // import _ from 'underscore';
+import moment from 'moment';
+import { arrUnique } from '../utils/tools';
 import { filterData } from '../data/filter';
 import {customerData} from '../data/customer';
 
@@ -10,6 +12,9 @@ export const FILTER_PROVINCE = 'customer/FILTER_PROVINCE'
 export const GET_STORAGE_CUSTOMER_LIST = 'customer/GET_STORAGE_CUSTOMER_LIST'
 export const CUSTOMER_FILTER_DATA = 'customer/CUSTOMER_FILTER_DATA'
 
+export const RECEIVE_CLICKED_IDS = 'customer/RECEIVE_CLICKED_IDS'
+export const CLICKED_CUSTOMER_ID = 'customer/CLICKED_CUSTOMER_ID'
+
 export const setFilter = (t,id) => (dispatch) => {
   if(t==='type') dispatch({type: FILTER_TYPE, ftType: id})
   if(t==='status') dispatch({type: FILTER_STATUS, status: id})
@@ -19,38 +24,43 @@ export const setFilter = (t,id) => (dispatch) => {
 export const init = () => (dispatch) => {
   dispatch(receiveFilterData())
   dispatch(receiveListData())
+  dispatch(receiveClickedIds())
 }
 
-const receiveListData = () => (dispatch) =>{
+export const receiveListData = () => (dispatch) =>{
   dispatch({type: GET_STORAGE_CUSTOMER_LIST, data: customerData || [] })
 }
 const receiveFilterData = () => (dispatch) =>{
   dispatch({type: CUSTOMER_FILTER_DATA, filterData: filterData || [] })
 }
 
+const receiveClickedIds = () => (dispatch) =>{
+  let localCustomerIds = localStorage.getItem('localCustomerIds')?localStorage.getItem('localCustomerIds').split(','):[]
+  const {userName, today} = localStorage
+  const sessionUserName = sessionStorage.getItem('userName')
+  const _today = moment().format('YYYY-MM-DD')
+  
+  //当本地存储的用户名和当前登录用户名不一样，或者当本地存储的日期与当前日期不一致时，清空
+  if(userName!==sessionUserName || today!==_today) localCustomerIds = []
 
-// export const editBaseClick = () => (dispatch,getState) => {
-//   dispatch({type: EDIT_BASE, editBase: !getState().user.editBase})
-// }
+  dispatch({type: RECEIVE_CLICKED_IDS, clickedIds: localCustomerIds })
+}
 
-// export const editContactClick = () => (dispatch,getState) => {
-//   dispatch({type: EDIT_CONTACT, editContact: !getState().user.editContact})
-// }
+export const regClickedCustomerId = (id) => (dispatch, getState) => {
+  dispatch({type: CLICKED_CUSTOMER_ID, id: id })
 
-// export const submitBasicInfo = (values) => (dispatch,getState) => {
-//   dispatch({type: USER_BASEINFO, base: values})
-//   dispatch({type: EDIT_BASE, editBase: !getState().user.editBase})
+  const {clickedIds} = getState().customer
+  let _clickedIds = clickedIds || []
+  _clickedIds.push(id)
+  const __clickedIds = arrUnique(_clickedIds)
+  dispatch({type: RECEIVE_CLICKED_IDS, clickedIds: __clickedIds })
 
-//   sessionStorage.setItem('base',JSON.stringify(values))
+  localStorage.setItem('localCustomerIds', __clickedIds)
+  localStorage.setItem('today', moment().format('YYYY-MM-DD'))
+  localStorage.setItem('userName',sessionStorage.getItem('userName'))
+}
 
-//   message.success('保存成功！')
-// }
-
-
-// export const handleImageUrl = (url) => (dispatch) => {
-//   dispatch({type: USER_PICTURE, pictureUrl: url})
-
-//   sessionStorage.setItem('pictureUrl',url)
-// }
-
+export const handleItemTypeClick = (id) => (dispatch) => {
+  dispatch({type: FILTER_TYPE, ftType: id})
+}
 

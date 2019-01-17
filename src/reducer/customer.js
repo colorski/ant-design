@@ -5,7 +5,9 @@ import {
   FILTER_STATUS,
   FILTER_PROVINCE,
   GET_STORAGE_CUSTOMER_LIST,
-  CUSTOMER_FILTER_DATA
+  CUSTOMER_FILTER_DATA,
+  RECEIVE_CLICKED_IDS,
+  CLICKED_CUSTOMER_ID,
 } from '../actions/customer'
 
 export default combineReducers({
@@ -34,6 +36,16 @@ export default combineReducers({
   data: cr([],{
     [GET_STORAGE_CUSTOMER_LIST]({data}){
       return data
+    }
+  }),
+  clickedIds: cr([],{
+    [RECEIVE_CLICKED_IDS]({clickedIds}){
+      return clickedIds
+    }
+  }),
+  clickedId: cr(null,{
+    [CLICKED_CUSTOMER_ID]({id}){
+      return id
     }
   }),
   
