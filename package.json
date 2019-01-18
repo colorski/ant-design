@@ -1,6 +1,6 @@
 {
-  "name": "ant-design",
-  "version": "1.0.5",
+  "name": "ant-design-web",
+  "version": "1.0.8",
   "private": true,
   "dependencies": {
     "antd": "^3.10.3",
