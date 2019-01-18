@@ -15,6 +15,8 @@ export const CUSTOMER_FILTER_DATA = 'customer/CUSTOMER_FILTER_DATA'
 export const RECEIVE_CLICKED_IDS = 'customer/RECEIVE_CLICKED_IDS'
 export const CLICKED_CUSTOMER_ID = 'customer/CLICKED_CUSTOMER_ID'
 
+export const CUSTOMER_ITEM_INFO = 'customer/CUSTOMER_ITEM_INFO'
+
 export const setFilter = (t,id) => (dispatch) => {
   if(t==='type') dispatch({type: FILTER_TYPE, ftType: id})
   if(t==='status') dispatch({type: FILTER_STATUS, status: id})
@@ -64,3 +66,6 @@ export const handleItemTypeClick = (id) => (dispatch) => {
   dispatch({type: FILTER_TYPE, ftType: id})
 }
 
+export const customerItemInfo = (itemInfo) => (dispatch) => {
+  dispatch({type: CUSTOMER_ITEM_INFO, itemInfo: itemInfo})
+}

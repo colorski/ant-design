@@ -8,6 +8,7 @@ import {
   CUSTOMER_FILTER_DATA,
   RECEIVE_CLICKED_IDS,
   CLICKED_CUSTOMER_ID,
+  CUSTOMER_ITEM_INFO,
 } from '../actions/customer'
 
 export default combineReducers({
@@ -46,6 +47,11 @@ export default combineReducers({
   clickedId: cr(null,{
     [CLICKED_CUSTOMER_ID]({id}){
       return id
+    }
+  }),
+  itemInfo: cr(null,{
+    [CUSTOMER_ITEM_INFO]({itemInfo}){
+      return itemInfo
     }
   }),
   

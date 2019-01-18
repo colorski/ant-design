@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Tooltip, Icon, Popconfirm, notification } from 'antd';
+import { Table, Tooltip, Icon, Popconfirm, Modal, Button, Alert } from 'antd';
 import _ from 'underscore';
 import { Link } from 'react-router-dom';
 
@@ -10,6 +10,10 @@ export default class CustomerList extends Component {
       order: 'descend',
       columnKey: 'callToday',
     },
+
+    contactVisible: false,
+    keepVisible: false,
+    keepLoading: false,
   };
   handleTableChange = (pagination, filters, sorter) => {
     this.setState({
@@ -19,7 +23,8 @@ export default class CustomerList extends Component {
   }
 
   render () {
-    const {data, filterData, clickedIds, onRegClickedCustomerId, onHandleItemTypeClick} = this.props;
+    const {data, filterData, clickedIds, itemInfo, selfMoney, onRegClickedCustomerId, onHandleItemTypeClick, onHandleCustomerItemInfo} = this.props;
+    const {contactVisible, keepVisible, keepLoading} = this.state;
     const {type, status, province} = filterData;
 
     //筛选和排序
@@ -28,6 +33,7 @@ export default class CustomerList extends Component {
     filteredInfo = filteredInfo || {};
     const cutFirst = (p) => {let t = _.map(p, (d)=> {return {text:d.name, value:d.id}}); t.splice(0,1); return t}
 
+    //表格头部提示信息
     const headNameTips = () => {
       return <Tooltip placement="right" title="点击过的置灰，保留一天">
         <span>客户名称 <Icon type="info-circle-o" style={{color:'#b5b5b5'}} /></span>
@@ -38,19 +44,38 @@ export default class CustomerList extends Component {
         <span><Icon type="info-circle-o" style={{color:'#b5b5b5'}} /> 客户类型 </span>
       </Tooltip>
     }
-    
-    const sureDelCustomerItem = (id) => {
-      notification.open({
-        message: 'id：'+id,
-        duration: 3,
-        style: {
-          width: 200,
-          marginLeft: 195,
-        }
-      });
-    }
 
-    const cancelDelCustomerItem = (e) => {}
+    //联系
+    const onContactCustomerItem = (rec) => {
+      this.setState({contactVisible: true})
+      onHandleCustomerItemInfo(rec)
+    }
+    const contactCustomerInfo = <div className="contact_customer_info">
+      <span>省份：<b>{itemInfo && province && province[itemInfo.province].name}</b></span>
+      <span>类型：<b>{itemInfo && type && type[itemInfo.type].name}</b></span>
+      <span>状态：<b>{itemInfo && status && status[itemInfo.status].name}</b></span>
+      <span>今日拨打：<b>{itemInfo && itemInfo.callToday}</b></span>
+      <span>本周拨打：<b>{itemInfo && itemInfo.callWeek}</b></span>
+    </div>
+
+    //保留
+    const onKeepCustomerItem = (rec) => {
+      this.setState({keepVisible: true})
+      onHandleCustomerItemInfo(rec)
+    }
+    const handleKeepSure = () => {
+      this.setState({ keepLoading: true });
+      const keepMoney = itemInfo && itemInfo.keepPrice-0
+      setTimeout(() => {
+        if(selfMoney<keepMoney){
+          this.setState({ keepLoading: false });
+          window.MESSAGER.warn('你的保留费不够！')
+        }else{
+          this.setState({ keepLoading: false, keepVisible: false });
+          window.MESSAGER.success('保留成功！')
+        }
+      }, 1500);
+    }
 
     const columns = [{
       title: '客户ID',
@@ -115,20 +140,73 @@ export default class CustomerList extends Component {
       dataIndex: 'todo',
       render: (text, rec) => (
         <div className="col-todo">
-          <span onClick={()=>console.log(rec.id)}>联系</span>
+          <span onClick={()=> onContactCustomerItem(rec)}>联系</span>
           <b>|</b>
-          <Popconfirm title="确定要删除？" onConfirm={()=>sureDelCustomerItem(rec.id)} onCancel={()=>cancelDelCustomerItem} okText="确定" cancelText="取消">
+          <Popconfirm title="确定要删除？" onConfirm={()=>window.MESSAGER.success('删除的ID:'+rec.id)} okText="确定" cancelText="取消">
             <span>删除</span>
           </Popconfirm>
           {
-            !rec.keeper && <span><b>|</b><span onClick={()=>console.log(rec.id)}>保留</span></span>
+            !rec.keeper && <span><b>|</b>
+              <span onClick={()=> onKeepCustomerItem(rec)}>
+              保留
+              </span>
+            </span>
           }
         </div>
       ),
     }];
 
+    const linkMenColumns = [{
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+    }, {
+      title: '姓名',
+      dataIndex: 'name',
+      key: 'name',
+    }, {
+      title: '职位',
+      dataIndex: 'position',
+      key: 'position',
+    }, {
+      title: '联系方式',
+      dataIndex: 'tel',
+      key: 'tel',
+    }, {
+      title: '操作',
+      dataIndex: 'todos',
+      render: ()=>{
+        return <Icon type="phone" title="拨打" style={{cursor: 'pointer', color: '#52c41a', fontSize: '18px'}} />
+      }
+    }];
+
     return <div className="customer-table">
       <Table className="collection-table" columns={columns} dataSource={data} onChange={this.handleTableChange} rowKey="id" />
+
+      {/* 联系 */}
+      <Modal
+        visible={contactVisible}
+        title={`联系学校：${itemInfo && itemInfo.name}`}
+        onCancel={()=>this.setState({ contactVisible: false})}
+        footer={null}
+      >
+        <Alert type="info" description={contactCustomerInfo} />
+        <Table dataSource={itemInfo && itemInfo.linkMen} columns={linkMenColumns} showHeader={false} pagination={false} rowKey="id" />
+      </Modal>
+
+      {/* 保留 */}
+      <Modal
+        visible={keepVisible}
+        title={`保留学校：${itemInfo && itemInfo.name}-[${itemInfo && type[itemInfo.type].name}]`}
+        onCancel={()=>this.setState({ keepVisible: false})}
+        footer={[
+          <Button key="back" onClick={()=>this.setState({ keepVisible: false})}>取消</Button>,
+          <Button key="submit" type="primary" loading={keepLoading} onClick={handleKeepSure}>保留</Button>,
+        ]}
+      >
+        <p>所需保留费：<strong style={{color:'#f00'}}>￥{itemInfo && itemInfo.keepPrice}</strong></p>
+        <p>本人保留费：<strong>￥{selfMoney}</strong></p>
+      </Modal>
     </div>
   }
 }

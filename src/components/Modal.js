@@ -8,7 +8,7 @@ let modalStack = []
 
 export default class Modal extends Component{
   render(){
-    const {title, children, onCancel, style, className, height, width='90%', extra} = this.props
+    const {title, children, onCancel, style, className, height, width='60%', extra} = this.props
     let modalStyle = {}
     modalStyle.width = width
     return <div className={genClassName("xkcpn-modal", className)}

@@ -203,7 +203,9 @@ body {
 .filter-params p strong {
   color: #f00;
 }
-
+.contact_customer_info span {
+  margin-right: 15px;
+}
 
 
 
