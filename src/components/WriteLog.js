@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Row, Col, Radio, Input, Icon, Tooltip, Button, Modal } from 'antd';
 import _ from 'underscore';
@@ -12,7 +12,7 @@ import './WriteLog.css';
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 
-export default class WriteLog extends Component {
+export default class WriteLog extends PureComponent {
   constructor (props) {
     super(props)
     this.state = {

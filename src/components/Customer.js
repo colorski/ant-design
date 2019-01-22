@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Layout } from 'antd';
 //import { Link } from 'react-router-dom';
 import Header from '../containers/HeaderCtn';
@@ -6,7 +6,7 @@ import CustomerList from '../containers/CustomerListCtn';
 import Footer from './Footer';
 import FilterList from './FilterList';
 
-export default class Customer extends Component {
+export default class Customer extends PureComponent {
   render () {
     const { Content } = Layout;
     const { filterData, filter, onSetFilter, data } = this.props;

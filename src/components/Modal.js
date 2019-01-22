@@ -1,12 +1,12 @@
 import './Modal.css'
 import _ from 'underscore'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import Icon from './Icon'
 import {getTopZIndex, genClassName} from '../utils/component'
 
 let modalStack = []
 
-export default class Modal extends Component{
+export default class Modal extends PureComponent{
   render(){
     const {title, children, onCancel, style, className, height, width='60%', extra} = this.props
     let modalStyle = {}

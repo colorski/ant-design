@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Table, Tooltip, Icon, Popconfirm, Modal, Button, Alert } from 'antd';
 import _ from 'underscore';
 import { Link } from 'react-router-dom';
 
-export default class CustomerList extends Component {
+export default class CustomerList extends PureComponent {
   state = {
     filteredInfo: null,
     sortedInfo: {

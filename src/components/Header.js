@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {NavLink} from 'react-router-dom';
 import { Layout, Menu, Dropdown, Icon, message, Avatar } from 'antd';
 import ReactIcon from './ReactIcon';
 import { nav } from '../data/nav';
 
-export default class Header extends Component {
+export default class Header extends PureComponent {
   
   render () {
     const userName = window.sessionStorage.getItem('userName');

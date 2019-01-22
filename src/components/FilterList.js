@@ -1,11 +1,11 @@
 //Customer -> FilterList
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Button } from 'antd';
 import _ from 'underscore';
 
 const ButtonGroup = Button.Group;
 
-export default class FilterList extends Component {
+export default class FilterList extends PureComponent {
   render(){
     const { title, data, current, onClick } = this.props;
     return <div className="filter-list">

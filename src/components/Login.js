@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import ReactIcon from './ReactIcon';
 import { Button, Input } from 'antd';
 import './Login.css';
 
-export default class Login extends Component {
+export default class Login extends PureComponent {
   constructor(props){
     super(props)
     this.state = {

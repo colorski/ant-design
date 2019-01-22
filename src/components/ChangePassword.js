@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Layout, Icon, Tooltip, Form, Input, Button, message } from 'antd';
 import Header from '../containers/HeaderCtn';
 import Footer from './Footer';
 
 const FormItem = Form.Item;
 
-export default class ChangePassword extends Component {
+export default class ChangePassword extends PureComponent {
   render () {
 
     const { Content } = Layout;
@@ -39,7 +39,7 @@ export default class ChangePassword extends Component {
 
 }
 
-class PasswordForm extends Component {
+class PasswordForm extends PureComponent {
   
   handleSubmit = (e) => {
     e.preventDefault();

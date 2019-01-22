@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Home from '../containers/HomeCtn';
 import Customer from '../containers/CustomerCtn';
@@ -10,7 +10,7 @@ import Global from '../components/Global';
 import VersionLog from '../components/VersionLog';
 import NoMatch from './NoMatch';
 
-export default class extends Component{
+export default class extends PureComponent{
 
   render(){
     return <div className="app">

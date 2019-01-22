@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Card, Col, Row, Icon, Modal, Table, message, Collapse, Alert, Form, Switch } from 'antd';
 import _ from 'underscore';
@@ -13,7 +13,7 @@ import Footer from './Footer';
 const Panel = Collapse.Panel;
 const FormItem = Form.Item;
 
-export default class Home extends Component {
+export default class Home extends PureComponent {
   constructor (props){
     super(props)
     this.state = {

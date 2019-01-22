@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Layout, Icon, Timeline } from 'antd';
 import _ from 'underscore';
 import { versions } from '../data/version';
 import Header from '../containers/HeaderCtn';
 import Footer from './Footer';
 
-export default class VersionLog extends Component {
+export default class VersionLog extends PureComponent {
 
   render () {
 

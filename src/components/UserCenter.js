@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Layout, Icon, Row, Col, Form, Input, Cascader, DatePicker, Radio, Button, Select, AutoComplete, Avatar, Upload, message } from 'antd';// AutoComplete,
 import _ from 'underscore';
 //import { Link } from 'react-router-dom';
@@ -38,7 +38,7 @@ const sexArr = [{id:1, text:'男'},{id:2, text:'女'}]
 
 //const _webSite = ['.com', '.org', '.net', '.vip'];
 
-export default class UserCenter extends Component {
+export default class UserCenter extends PureComponent {
   render () {
     const { Content } = Layout;
     const { userName, deptTree, positionTree, base, contact, onEditBaseClick, editBase, onSubmitBasicInfo, editContact, onSubmitContact, onEditContactClick, pictureUrl, onHandleImageUrl } = this.props;
@@ -96,7 +96,7 @@ export default class UserCenter extends Component {
 }
 
 //基本信息
-class BasicInfoForm extends Component {
+class BasicInfoForm extends PureComponent {
 
   handleSubmitBasicInfo = (e) => {
     e.preventDefault();
@@ -225,7 +225,7 @@ class BasicInfoForm extends Component {
 const WrappedBasicInfoForm = Form.create()(BasicInfoForm);
 
 //联系方式
-class ContactForm extends Component {
+class ContactForm extends PureComponent {
   state = {
     autoCompleteResult: [],
   };
@@ -360,7 +360,7 @@ class ContactForm extends Component {
 }
 const WrappedContactForm = Form.create()(ContactForm);
 
-class WrappedUploadAvatar extends Component {
+class WrappedUploadAvatar extends PureComponent {
 
   handleUploadChange = (info) => {
     this.props.onHandleImageUrl(info.file.url || info.file.thumbUrl);

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { Layout } from 'antd';
 import { versions } from '../data/version';
 
-export default class Footer extends Component {
+export default class Footer extends PureComponent {
   render () {
     const { Footer } = Layout;
 
