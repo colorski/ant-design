@@ -13,7 +13,8 @@ export default class Header extends PureComponent {
     if(pictureUrl === null ){ pictureUrl = window.sessionStorage.getItem('pictureUrl')}
 
     //通过获取key的值然后setState有问题，通过window.location.pathname获取
-    let arrPathname = window.location.pathname.substring(1).split();
+    //let arrPathname = window.location.pathname.substring(1).split();
+    let arrPathname = window.location.hash.substring(2).split();
     if(!arrPathname[0].length) arrPathname=["home"]
 
     const memuClickEvent = ({key}) => {

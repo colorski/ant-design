@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Home from '../containers/HomeCtn';
 import Customer from '../containers/CustomerCtn';
 import Login from '../containers/LoginCtn';
@@ -25,7 +25,7 @@ export default class extends PureComponent{
   }
 
   renderRouter(){
-    return <BrowserRouter>
+    return <HashRouter>
       <Switch>
         <Route path="/" exact component={ Home }></Route>
         <Route path="/home" component={ Home }></Route>
@@ -40,7 +40,7 @@ export default class extends PureComponent{
         <Redirect to="/nomatch" />
         {/* <Route path="/login" component={Login} /> */}
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   }
 
   componentDidMount(){
