@@ -1,6 +1,7 @@
-import { connect } from 'react-redux'
-import App from '../components/App'
-import {registerMessagers, getDeptTree, getPosition} from '../actions/global'
+import { connect } from 'react-redux';
+import App from '../components/App';
+import {registerMessagers, getDeptTree, getPosition} from '../actions/global';
+import {getStorageData} from '../actions/login';
 
 export default connect(function(state){
   return {
@@ -12,6 +13,7 @@ export default connect(function(state){
       dispatch(registerMessagers())
       dispatch(getDeptTree())
       dispatch(getPosition())
+      dispatch(getStorageData())
     }
   }
 })(App)

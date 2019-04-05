@@ -9,8 +9,9 @@ export const LOGIN_PASSWORD = 'login/LOGIN_PASSWORD'
 //从session获取数据
 const storage = window.sessionStorage;
 export const getStorageData = () => (dispatch) =>{
-  dispatch({type: LOGIN_NAME, userName: storage.getItem('userName')})
-  dispatch({type: LOGIN_PASSWORD, passWord: storage.getItem('passWord')})
+  dispatch({type: LOGIN_NAME, userName: storage.getItem('userName')==='null'?'':storage.getItem('userName')})
+  dispatch({type: LOGIN_PASSWORD, passWord: storage.getItem('passWord')==='null'?'':storage.getItem('passWord')})
+  dispatch({type: LOGGED, logged: storage.getItem('logged')==='null'?false:JSON.parse(storage.getItem('logged'))})
 }
 
 //登录
@@ -31,13 +32,18 @@ export const login = (userName, passWord) => (dispatch) => {
     storage.setItem('logged',true)
 
     const location = window.location;
-    if(location.pathname === '/login'){
+    if(location.pathname === '/login' || location.pathname === '/'){
       window.location.href="/";
+    }
+    if(location.pathname === '/ant/'){
+      window.location.href="/ant/";
     }
   }
 }
 
 //修改密码
 export const changePassword = (passWord) => (dispatch) => {
+  dispatch({type: LOGIN_NAME, userName: null})
   dispatch({type: LOGIN_PASSWORD, passWord: passWord})
+  dispatch({type: LOGGED, logged: false})
 }

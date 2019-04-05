@@ -58,11 +58,17 @@ class PasswordForm extends PureComponent {
           return false;
         }
         onChangePassword(values.password_2);
+        sessionStorage.setItem('userName', null)
         sessionStorage.setItem('passWord', values.password_2)
+        sessionStorage.setItem('logged', false)
 
         message.success('密码修改成功！请重新登录！')
-
-        setTimeout(()=>(window.location.href="/login"),1000)
+        if(window.location.pathname === '/ant/'){
+          setTimeout(()=>(window.location.href="/ant/#/login"),1000)
+        }else{
+          setTimeout(()=>(window.location.href="/#/login"),1000)
+        }
+        
       }
     });
   }

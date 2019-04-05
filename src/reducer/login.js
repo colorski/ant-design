@@ -19,8 +19,8 @@ export default combineReducers({
     }
   }),
   logged: cr(false,{
-    [LOGGED](){
-      return true
+    [LOGGED]({logged}){
+      return JSON.parse(logged)
     }
   })
 })
