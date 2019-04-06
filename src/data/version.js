@@ -2,6 +2,14 @@
 
 export const versions = [
   {
+    "version": "1.0.9",
+    "time": "2019-04-06",
+    "updates": [
+      "修改路由，BrowserHistory暂时改为HashHistory，解决上线后页面的刷新问题；因BrowserHistory需要server端支持",
+      "修复修改密码后跳转到登陆页的问题，区分线下和线上"
+    ]
+  },
+  {
     "version": "1.0.8",
     "time": "2018-01-18",
     "updates": [

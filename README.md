@@ -1,4 +1,4 @@
-## Technology stack
+## 技术栈
 ```
 "antd": "^3.12.4",
 "echarts": "^4.2.0-rc.2",
@@ -18,7 +18,7 @@
 
 ```
 
-## Update log
+## 更新日志
 ```
 {
   "version": "1.0.9",
